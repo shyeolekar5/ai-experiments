@@ -4,7 +4,7 @@ This guide walks you through the four steps of setting up your Zapier automation
 
 ## Prerequisites
 
-Before starting, ensure you have active accounts for Zapier (Premium plan required), AssemblyAI, and Trello.
+Before starting, ensure you have active accounts for Zapier, AssemblyAI, and Trello.
 
 ### Automation Flow Overview
 
