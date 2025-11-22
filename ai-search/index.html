@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Research Search</title>
+    <style>
+        body { font-family: sans-serif; background: #f4f4f9; display: flex; justify-content: center; padding-top: 50px; }
+        .container { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 600px; }
+        h2 { text-align: center; color: #333; margin-bottom: 5px; }
+        p.subtitle { text-align: center; color: #666; font-size: 0.9em; margin-bottom: 25px; }
+        .search-box { display: flex; gap: 10px; }
+        input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px; }
+        button { padding: 12px 25px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; transition: 0.2s; }
+        button:hover { background: #0056b3; }
+        #loading { display: none; text-align: center; margin-top: 20px; color: #666; }
+        #result { display: none; margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #007bff; line-height: 1.6; }
+        .error { color: #dc3545; border-left-color: #dc3545; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🤖 Ask the Paper</h2>
+    <p class="subtitle">Powered by Gemini 2.0 & "Attention Is All You Need"</p>
+
+    <div class="search-box">
+        <input type="text" id="question" placeholder="e.g., What is the benefit of self-attention?" onkeypress="handleEnter(event)">
+        <button onclick="askAI()">Ask</button>
+    </div>
+
+    <div id="loading">Thinking... (Takes ~30s if server is sleeping) 🧠</div>
+    <div id="result"></div>
+</div>
+
+<script>
+    const API_URL = "https://ai-experiments-m5bd.onrender.com";
+
+    function handleEnter(e) {
+        if (e.key === 'Enter') askAI();
+    }
+
+    async function askAI() {
+        const q = document.getElementById('question').value;
+        const resultDiv = document.getElementById('result');
+        const loadingDiv = document.getElementById('loading');
+
+        if (!q) return;
+
+        // Reset UI
+        resultDiv.style.display = 'none';
+        resultDiv.className = ''; 
+        loadingDiv.style.display = 'block';
+
+        try {
+            const response = await fetch(`${API_URL}/search`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question: q })
+            });
+
+            const data = await response.json();
+            
+            loadingDiv.style.display = 'none';
+            resultDiv.style.display = 'block';
+
+            if (data.answer) {
+                // Format bold text for better reading
+                resultDiv.innerHTML = data.answer.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+            } else {
+                resultDiv.innerText = "Error: " + (data.detail || "Unknown error");
+                resultDiv.classList.add('error');
+            }
+
+        } catch (err) {
+            loadingDiv.style.display = 'none';
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `<strong>Connection Failed:</strong><br>Is your URL correct?<br>Is the Render server running?<br><br><em>Error: ${err.message}</em>`;
+            resultDiv.classList.add('error');
+        }
+    }
+</script>
+
+</body>
+</html>
