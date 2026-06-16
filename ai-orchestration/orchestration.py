@@ -43,7 +43,10 @@ def track_llm_call(agent_name, prompt, color):
 def track_embedding_call(text):
     """Wraps embedding calls for observability."""
     start = time.time()
-    response = client.models.embed_content(model="text-embedding-004", contents=text)
+    
+    # UPDATE THIS LINE:
+    response = client.models.embed_content(model="gemini-embedding-001", contents=text)
+    
     latency = round(time.time() - start, 2)
     
     # The API returns a list of embeddings. We want the vector array from the first one.
