@@ -96,9 +96,9 @@ if __name__ == "__main__":
     print("📊 EVALUATING STRATEGY A (The Loose/Poisoned Prompt)")
     print("="*50)
     # DeepEval's evaluate function automatically runs the metrics and prints a dashboard!
-    evaluate(strategy_a_tests, metrics, print_results=True)
+    evaluate(test_cases=strategy_a_tests, metrics=metrics)
 
     print("\n" + "="*50)
     print("🛡️ EVALUATING STRATEGY B (The Strict Prompt)")
     print("="*50)
-    evaluate(strategy_b_tests, metrics, print_results=True)
+    evaluate(test_cases=strategy_b_tests, metrics=metrics)
