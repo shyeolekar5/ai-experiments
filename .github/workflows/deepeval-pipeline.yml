@@ -27,6 +27,5 @@ jobs:
     - name: Run DeepEval Tests
       env:
         GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        working-directory: ./ai-evals-2
       run: |
         python deepeval_script.py
