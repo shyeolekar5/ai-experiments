@@ -1,0 +1,37 @@
+# Runtime data — auto-generated, do not commit
+data/
+*.db
+pipeline_config.json
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment
+.env
+*.env
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Streamlit cache only (keep config.toml)
+.streamlit/cache/
+
+# Eval run outputs — too large, change every run
+evals/configs/
+evals/results/run_*.json
+evals/results/detail_*.txt
+
+# Keep the one detail file worth showing
+!evals/results/detail_20260710_064946.txt
+
+# DeepEval cache
+.deepeval/

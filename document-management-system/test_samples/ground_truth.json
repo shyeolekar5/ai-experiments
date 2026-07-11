@@ -1,0 +1,44 @@
+{
+  "version": "1.0",
+  "description": "Ground truth expected values for each test document. Used by eval_runner.py to measure field-level precision/recall.",
+  "documents": [
+    {
+      "filename": "invoice_90211_digital.pdf",
+      "doc_type": "Invoice",
+      "expected": {
+        "invoice_number": "SERV-2026-88291",
+        "customer_name": "Global Industries LLC",
+        "total_amount": 2000.0
+      }
+    },
+    {
+      "filename": "fax_scan_48291.jpg",
+      "doc_type": "Purchase Order",
+      "expected": {
+        "po_number": "PO-98723",
+        "ship_to_company": "Acme Manufacturing",
+        "quantity": 50
+      }
+    },
+    {
+      "filename": "customer_complaint.png",
+      "doc_type": "Complaint",
+      "expected": {
+        "ticket_id": "TS-COMPLAINT-9921",
+        "customer_name": "David Miller",
+        "issue_summary": "Storage limits not updating after payment \u2014 paid plan not activated"
+      }
+    },
+    {
+      "filename": "contract_TECH-2026-001.pdf",
+      "doc_type": "Contract",
+      "expected": {
+        "contract_id": "TECH-2026-001",
+        "parties": "NovaTech Solutions Ltd. and Global Industries LLC",
+        "effective_date": "January 15, 2026",
+        "governing_law": "Province of Ontario, Canada",
+        "contract_value": 120000.0
+      }
+    }
+  ]
+}

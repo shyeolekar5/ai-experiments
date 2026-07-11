@@ -1,0 +1,983 @@
+EXPERIMENT DETAIL FILE
+Run: 20260710_064946  Model: gemini-2.5-flash
+=================================================================
+Open this file to see field-by-field breakdowns and RAG chunk retrieval.
+
+
+=================================================================
+EXPERIMENT 1: MODEL_COMPARISON
+=================================================================
+
+------------------------------------------------------------------
+  invoice_90211_digital.pdf  [Invoice]
+  precision=100%  recall=100%  f1=100%  conf=100%  lat=3.0s  cost=$0.00006
+  TP=3  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  invoice_number [required]
+       extracted: 'SERV-2026-88291'
+       matches:   'SERV-2026-88291' -- expected value found within extracted
+
+  [TP]  customer_name [required]
+       extracted: 'Global Industries LLC'
+       matches:   'Global Industries LLC' -- expected value found within extracted
+
+  [TP]  total_amount [required]
+       extracted: '2000.0'
+       matches:   '2000.0' -- within 1% tolerance (0.00% delta)
+
+------------------------------------------------------------------
+  fax_scan_48291.jpg  [Purchase Order]
+  precision=100%  recall=100%  f1=100%  conf=100%  lat=3.4s  cost=$0.00005
+  TP=3  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  po_number [required]
+       extracted: 'PO-98723'
+       matches:   'PO-98723' -- expected value found within extracted
+
+  [TP]  ship_to_company [optional]
+       extracted: 'Acme Manufacturing'
+       matches:   'Acme Manufacturing' -- expected value found within extracted
+
+  [TP]  quantity [required]
+       extracted: '50'
+       matches:   '50' -- exact integer match
+
+------------------------------------------------------------------
+  customer_complaint.png  [Complaint]
+  precision=100%  recall=100%  f1=100%  conf=100%  lat=2.7s  cost=$0.00006
+  TP=3  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  ticket_id [optional]
+       extracted: 'TS-COMPLAINT-9921'
+       matches:   'TS-COMPLAINT-9921' -- expected value found within extracted
+
+  [TP]  customer_name [required]
+       extracted: 'David Miller'
+       matches:   'David Miller' -- expected value found within extracted
+
+  [TP]  issue_summary [required] [LLM-judge]
+       extracted: 'Storage limits are not updating to the paid plan (100 GB) after payment, still showing the free tier limit (5 GB).'
+       matches:   'Storage limits not updating after payment — paid plan not activated' -- [LLM judge] The extracted value accurately captures all the core information from the expected value, including that storage limits are not updating after payment and the paid plan is not activated. It also provides additional, relevant details about the specific storage limits (100 GB paid, 5 GB free) which further clarifies the issue without missing any key facts.
+
+------------------------------------------------------------------
+  contract_TECH-2026-001.pdf  [Contract]
+  precision=100%  recall=100%  f1=100%  conf=98%  lat=8.4s  cost=$0.00067
+  TP=5  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  contract_id [optional]
+       extracted: 'TECH-2026-001'
+       matches:   'TECH-2026-001' -- expected value found within extracted
+
+  [TP]  parties [required] [LLM-judge]
+       extracted: 'NovaTech Solutions Ltd. and Global Industries LLC'
+       matches:   'NovaTech Solutions Ltd. and Global Industries LLC' -- [LLM judge] The extracted value is identical to the expected value, accurately capturing all parties mentioned.
+
+  [TP]  effective_date [required]
+       extracted: 'January 15, 2026'
+       matches:   'January 15, 2026' -- expected value found within extracted
+
+  [TP]  governing_law [optional] [LLM-judge]
+       extracted: 'Province of Ontario, Canada'
+       matches:   'Province of Ontario, Canada' -- [LLM judge] The extracted value "Province of Ontario, Canada" is identical to the expected value "Province of Ontario, Canada". Both values perfectly match, indicating a correct extraction.
+
+  [TP]  contract_value [optional]
+       extracted: '120000.0'
+       matches:   '120000.0' -- within 1% tolerance (0.00% delta)
+
+------------------------------------------------------------------
+  invoice_90211_digital.pdf  [Invoice]
+  precision=100%  recall=100%  f1=100%  conf=50%  lat=2.1s  cost=$0.00153
+  TP=3  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  invoice_number [required]
+       extracted: 'SERV-2026-88291'
+       matches:   'SERV-2026-88291' -- expected value found within extracted
+
+  [TP]  customer_name [required]
+       extracted: 'Global Industries LLC'
+       matches:   'Global Industries LLC' -- expected value found within extracted
+
+  [TP]  total_amount [required]
+       extracted: '2000.0'
+       matches:   '2000.0' -- within 1% tolerance (0.00% delta)
+
+------------------------------------------------------------------
+  fax_scan_48291.jpg  [Purchase Order]
+  precision=100%  recall=100%  f1=100%  conf=50%  lat=1.7s  cost=$0.00291
+  TP=3  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  po_number [required]
+       extracted: 'PO-98723'
+       matches:   'PO-98723' -- expected value found within extracted
+
+  [TP]  ship_to_company [optional]
+       extracted: 'Acme Manufacturing'
+       matches:   'Acme Manufacturing' -- expected value found within extracted
+
+  [TP]  quantity [required]
+       extracted: '50'
+       matches:   '50' -- exact integer match
+
+------------------------------------------------------------------
+  customer_complaint.png  [Complaint]
+  precision=100%  recall=100%  f1=100%  conf=50%  lat=1.3s  cost=$0.00320
+  TP=3  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  ticket_id [optional]
+       extracted: 'TS-COMPLAINT-9921'
+       matches:   'TS-COMPLAINT-9921' -- expected value found within extracted
+
+  [TP]  customer_name [required]
+       extracted: 'David Miller'
+       matches:   'David Miller' -- expected value found within extracted
+
+  [TP]  issue_summary [required] [LLM-judge]
+       extracted: 'Storage limit is still showing the free tier limit (5 GB) and has not updated to the paid plan (100 GB) despite payment confirmation.'
+       matches:   'Storage limits not updating after payment — paid plan not activated' -- [LLM judge] The extracted value accurately captures all the core information from the expected value. It states that storage limits are not updating after payment and that the paid plan is not activated, providing additional helpful details about the specific limits (5 GB vs 100 GB).
+
+------------------------------------------------------------------
+  contract_TECH-2026-001.pdf  [Contract]
+  precision=100%  recall=100%  f1=100%  conf=50%  lat=1.4s  cost=$0.00804
+  TP=5  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  contract_id [optional]
+       extracted: 'TECH-2026-001'
+       matches:   'TECH-2026-001' -- expected value found within extracted
+
+  [TP]  parties [required] [LLM-judge]
+       extracted: 'NovaTech Solutions Ltd. and Global Industries LLC'
+       matches:   'NovaTech Solutions Ltd. and Global Industries LLC' -- [LLM judge] The extracted value is identical to the expected value, accurately capturing all parties mentioned.
+
+  [TP]  effective_date [required]
+       extracted: 'January 15, 2026'
+       matches:   'January 15, 2026' -- expected value found within extracted
+
+  [TP]  governing_law [optional] [LLM-judge]
+       extracted: 'Province of Ontario, Canada'
+       matches:   'Province of Ontario, Canada' -- [LLM judge] The extracted value is an exact match to the expected value.
+
+  [TP]  contract_value [optional]
+       extracted: '120000'
+       matches:   '120000.0' -- within 1% tolerance (0.00% delta)
+
+
+=================================================================
+EXPERIMENT 2: CALL_ARCHITECTURE
+=================================================================
+
+------------------------------------------------------------------
+  invoice_90211_digital.pdf  [Invoice]
+  precision=100%  recall=100%  f1=100%  conf=100%  lat=6.4s  cost=$0.00010
+  TP=3  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  invoice_number [required]
+       extracted: 'SERV-2026-88291'
+       matches:   'SERV-2026-88291' -- expected value found within extracted
+
+  [TP]  customer_name [required]
+       extracted: 'Global Industries LLC'
+       matches:   'Global Industries LLC' -- expected value found within extracted
+
+  [TP]  total_amount [required]
+       extracted: '2000.0'
+       matches:   '2000.0' -- within 1% tolerance (0.00% delta)
+
+------------------------------------------------------------------
+  fax_scan_48291.jpg  [Purchase Order]
+  precision=100%  recall=100%  f1=100%  conf=100%  lat=5.4s  cost=$0.00009
+  TP=3  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  po_number [required]
+       extracted: 'PO-98723'
+       matches:   'PO-98723' -- expected value found within extracted
+
+  [TP]  ship_to_company [optional]
+       extracted: 'Acme Manufacturing'
+       matches:   'Acme Manufacturing' -- expected value found within extracted
+
+  [TP]  quantity [required]
+       extracted: '50'
+       matches:   '50' -- exact integer match
+
+------------------------------------------------------------------
+  customer_complaint.png  [Complaint]
+  precision=100%  recall=100%  f1=100%  conf=100%  lat=5.6s  cost=$0.00010
+  TP=3  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  ticket_id [optional]
+       extracted: 'TS-COMPLAINT-9921'
+       matches:   'TS-COMPLAINT-9921' -- expected value found within extracted
+
+  [TP]  customer_name [required]
+       extracted: 'David Miller'
+       matches:   'David Miller' -- expected value found within extracted
+
+  [TP]  issue_summary [required] [LLM-judge]
+       extracted: 'Storage limit is still showing the free tier limit (5 GB) and has not updated to the paid plan (100 GB) despite payment confirmation.'
+       matches:   'Storage limits not updating after payment — paid plan not activated' -- [LLM judge] The extracted value accurately captures all the core information from the expected value. It states that storage limits are not updating after payment and that the paid plan is not activated, providing additional helpful details about the specific limits (5 GB vs 100 GB).
+
+------------------------------------------------------------------
+  contract_TECH-2026-001.pdf  [Contract]
+  precision=100%  recall=100%  f1=100%  conf=95%  lat=29.5s  cost=$0.00084
+  TP=5  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  contract_id [optional]
+       extracted: 'TECH-2026-001'
+       matches:   'TECH-2026-001' -- expected value found within extracted
+
+  [TP]  parties [required] [LLM-judge]
+       extracted: 'NovaTech Solutions Ltd. and Global Industries LLC'
+       matches:   'NovaTech Solutions Ltd. and Global Industries LLC' -- [LLM judge] The extracted value is an exact match to the expected value, capturing both parties completely and accurately.
+
+  [TP]  effective_date [required]
+       extracted: 'January 15, 2026'
+       matches:   'January 15, 2026' -- expected value found within extracted
+
+  [TP]  governing_law [optional] [LLM-judge]
+       extracted: 'Province of Ontario, Canada'
+       matches:   'Province of Ontario, Canada' -- [LLM judge] The extracted value is an exact match to the expected value.
+
+  [TP]  contract_value [optional]
+       extracted: '120000.0'
+       matches:   '120000.0' -- within 1% tolerance (0.00% delta)
+
+
+  [Two calls/contract_TECH-2026-001.pdf] 'contract_id' query='Find the contract_id in this document. Contract reference near th...' top-3:
+    #1  chunk[48]  sim=0.6982  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+    #2  chunk[43]  sim=0.6575  'SCHEDULE L — DEFINITIONS L.1 Key Definitions  "Approved Record" means a document whose extracted fields have been confirmed by...'
+    #3  chunk[0]  sim=0.6455  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+
+  [Two calls/contract_TECH-2026-001.pdf] 'parties' query='Find the parties in this document. Names of all parties in the op...' top-3:
+    #1  chunk[0]  sim=0.7726  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+    #2  chunk[31]  sim=0.7703  '18. ENTIRE AGREEMENT This Agreement constitutes the entire agreement between the parties and supersedes all prior negotiations, representations, warranties, and...'
+    #3  chunk[1]  sim=0.7297  '1. SCOPE OF SERVICES  NovaTech shall design and implement a multi-tenant AI document ingestion pipeline using Gemini 2.5 Flash....'
+
+  [Two calls/contract_TECH-2026-001.pdf] 'effective_date' query='Find the effective_date in this document. Date the contract takes...' top-3:
+    #1  chunk[48]  sim=0.6827  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+    #2  chunk[0]  sim=0.6734  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+    #3  chunk[1]  sim=0.6594  '1. SCOPE OF SERVICES  NovaTech shall design and implement a multi-tenant AI document ingestion pipeline using Gemini 2.5 Flash....'
+
+  [Two calls/contract_TECH-2026-001.pdf] 'governing_law' query='Find the governing_law in this document. Jurisdiction in the 'Gov...' top-3:
+    #1  chunk[30]  sim=0.7495  '17. GOVERNING LAW This Agreement shall be governed by and construed in accordance with the laws of the Province of...'
+    #2  chunk[9]  sim=0.6760  '6. DATA GOVERNANCE 6.1 Data Residency  All customer data shall be processed and stored within Canada unless explicitly agreed...'
+    #3  chunk[48]  sim=0.6564  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+
+  [Two calls/contract_TECH-2026-001.pdf] 'contract_value' query='Find the contract_value in this document. Total monetary value --...' top-3:
+    #1  chunk[2]  sim=0.7408  '2. CONTRACT VALUE AND PAYMENT TERMS The total contract value shall be $120,000.00 USD, payable as follows: Milestone Amount Due...'
+    #2  chunk[36]  sim=0.7103  'SCHEDULE E — PRICING AND INVOICING E.1 Fee Structure  The contract value of $120,000.00 USD covers all services described...'
+    #3  chunk[48]  sim=0.6872  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+------------------------------------------------------------------
+  invoice_90211_digital.pdf  [Invoice]
+  precision=100%  recall=100%  f1=100%  conf=100%  lat=2.9s  cost=$0.00007
+  TP=3  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  invoice_number [required]
+       extracted: 'SERV-2026-88291'
+       matches:   'SERV-2026-88291' -- expected value found within extracted
+
+  [TP]  customer_name [required]
+       extracted: 'Global Industries LLC'
+       matches:   'Global Industries LLC' -- expected value found within extracted
+
+  [TP]  total_amount [required]
+       extracted: '2000.0'
+       matches:   '2000.0' -- within 1% tolerance (0.00% delta)
+
+------------------------------------------------------------------
+  fax_scan_48291.jpg  [Purchase Order]
+  precision=100%  recall=100%  f1=100%  conf=100%  lat=4.2s  cost=$0.00006
+  TP=3  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  po_number [required]
+       extracted: 'PO-98723'
+       matches:   'PO-98723' -- expected value found within extracted
+
+  [TP]  ship_to_company [optional]
+       extracted: 'Acme Manufacturing'
+       matches:   'Acme Manufacturing' -- expected value found within extracted
+
+  [TP]  quantity [required]
+       extracted: '50'
+       matches:   '50' -- exact integer match
+
+------------------------------------------------------------------
+  customer_complaint.png  [Complaint]
+  precision=100%  recall=100%  f1=100%  conf=100%  lat=2.9s  cost=$0.00007
+  TP=3  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  ticket_id [optional]
+       extracted: 'TS-COMPLAINT-9921'
+       matches:   'TS-COMPLAINT-9921' -- expected value found within extracted
+
+  [TP]  customer_name [required]
+       extracted: 'David Miller'
+       matches:   'David Miller' -- expected value found within extracted
+
+  [TP]  issue_summary [required] [LLM-judge]
+       extracted: 'Customer's storage limit is still showing the free tier limit (5 GB) and has not updated to the paid plan (100 GB) despite payment confirmation.'
+       matches:   'Storage limits not updating after payment — paid plan not activated' -- [LLM judge] The extracted value accurately captures all the core information from the expected value, including the fact that storage limits are not updating after payment and the paid plan is not activated. It even provides additional helpful details regarding the specific storage limits (5 GB vs 100 GB).
+
+------------------------------------------------------------------
+  contract_TECH-2026-001.pdf  [Contract]
+  precision=100%  recall=100%  f1=100%  conf=100%  lat=23.6s  cost=$0.00021
+  TP=5  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  contract_id [optional]
+       extracted: 'TECH-2026-001'
+       matches:   'TECH-2026-001' -- expected value found within extracted
+
+  [TP]  parties [required] [LLM-judge]
+       extracted: 'NovaTech Solutions Ltd. and Global Industries LLC'
+       matches:   'NovaTech Solutions Ltd. and Global Industries LLC' -- [LLM judge] The extracted value is an exact match to the expected value, capturing both parties completely and accurately.
+
+  [TP]  effective_date [required]
+       extracted: 'January 15, 2026'
+       matches:   'January 15, 2026' -- expected value found within extracted
+
+  [TP]  governing_law [optional] [LLM-judge]
+       extracted: 'Province of Ontario, Canada'
+       matches:   'Province of Ontario, Canada' -- [LLM judge] The extracted value "Province of Ontario, Canada" is identical to the expected value "Province of Ontario, Canada". Both values perfectly match, indicating a correct extraction.
+
+  [TP]  contract_value [optional]
+       extracted: '120000.0'
+       matches:   '120000.0' -- within 1% tolerance (0.00% delta)
+
+
+  [One combined call/contract_TECH-2026-001.pdf] 'contract_id' query='Find the contract_id in this document. Contract reference near th...' top-3:
+    #1  chunk[48]  sim=0.6982  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+    #2  chunk[43]  sim=0.6575  'SCHEDULE L — DEFINITIONS L.1 Key Definitions  "Approved Record" means a document whose extracted fields have been confirmed by...'
+    #3  chunk[0]  sim=0.6455  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+
+  [One combined call/contract_TECH-2026-001.pdf] 'parties' query='Find the parties in this document. Names of all parties in the op...' top-3:
+    #1  chunk[0]  sim=0.7726  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+    #2  chunk[31]  sim=0.7703  '18. ENTIRE AGREEMENT This Agreement constitutes the entire agreement between the parties and supersedes all prior negotiations, representations, warranties, and...'
+    #3  chunk[1]  sim=0.7297  '1. SCOPE OF SERVICES  NovaTech shall design and implement a multi-tenant AI document ingestion pipeline using Gemini 2.5 Flash....'
+
+  [One combined call/contract_TECH-2026-001.pdf] 'effective_date' query='Find the effective_date in this document. Date the contract takes...' top-3:
+    #1  chunk[48]  sim=0.6827  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+    #2  chunk[0]  sim=0.6734  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+    #3  chunk[1]  sim=0.6594  '1. SCOPE OF SERVICES  NovaTech shall design and implement a multi-tenant AI document ingestion pipeline using Gemini 2.5 Flash....'
+
+  [One combined call/contract_TECH-2026-001.pdf] 'governing_law' query='Find the governing_law in this document. Jurisdiction in the 'Gov...' top-3:
+    #1  chunk[30]  sim=0.7495  '17. GOVERNING LAW This Agreement shall be governed by and construed in accordance with the laws of the Province of...'
+    #2  chunk[9]  sim=0.6760  '6. DATA GOVERNANCE 6.1 Data Residency  All customer data shall be processed and stored within Canada unless explicitly agreed...'
+    #3  chunk[48]  sim=0.6564  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+
+  [One combined call/contract_TECH-2026-001.pdf] 'contract_value' query='Find the contract_value in this document. Total monetary value --...' top-3:
+    #1  chunk[2]  sim=0.7408  '2. CONTRACT VALUE AND PAYMENT TERMS The total contract value shall be $120,000.00 USD, payable as follows: Milestone Amount Due...'
+    #2  chunk[36]  sim=0.7103  'SCHEDULE E — PRICING AND INVOICING E.1 Fee Structure  The contract value of $120,000.00 USD covers all services described...'
+    #3  chunk[48]  sim=0.6872  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+
+=================================================================
+EXPERIMENT 3: PROMPT_QUALITY
+=================================================================
+
+------------------------------------------------------------------
+  invoice_90211_digital.pdf  [Invoice]
+  precision=100%  recall=100%  f1=100%  conf=95%  lat=2.6s  cost=$0.00004
+  TP=3  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  invoice_number [required]
+       extracted: 'SERV-2026-88291'
+       matches:   'SERV-2026-88291' -- expected value found within extracted
+
+  [TP]  customer_name [required]
+       extracted: 'Global Industries LLC'
+       matches:   'Global Industries LLC' -- expected value found within extracted
+
+  [TP]  total_amount [required]
+       extracted: '2000.0'
+       matches:   '2000.0' -- within 1% tolerance (0.00% delta)
+
+------------------------------------------------------------------
+  fax_scan_48291.jpg  [Purchase Order]
+  precision=100%  recall=100%  f1=100%  conf=95%  lat=2.0s  cost=$0.00003
+  TP=3  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  po_number [required]
+       extracted: 'PO-98723'
+       matches:   'PO-98723' -- expected value found within extracted
+
+  [TP]  ship_to_company [optional]
+       extracted: 'Acme Manufacturing'
+       matches:   'Acme Manufacturing' -- expected value found within extracted
+
+  [TP]  quantity [required]
+       extracted: '50'
+       matches:   '50' -- exact integer match
+
+------------------------------------------------------------------
+  customer_complaint.png  [Complaint]
+  precision=67%  recall=100%  f1=80%  conf=95%  lat=3.2s  cost=$0.00003
+  TP=2  FP=1  FN=0  TN=0  HAL=0
+
+  [TP]  ticket_id [optional]
+       extracted: 'TS-COMPLAINT-9921'
+       matches:   'TS-COMPLAINT-9921' -- expected value found within extracted
+
+  [TP]  customer_name [required]
+       extracted: 'David Miller'
+       matches:   'David Miller' -- expected value found within extracted
+
+  [FP]  issue_summary [required] [LLM-judge]
+       extracted: 'Storage limits not updating after payment'
+       expected:  'Storage limits not updating after payment — paid plan not activated'
+       reason:    [LLM judge] The extracted value is missing the crucial information that the 'paid plan not activated', which is a key detail explaining why the storage limits are not updating. Therefore, it is a partial answer that misses key facts.
+
+------------------------------------------------------------------
+  contract_TECH-2026-001.pdf  [Contract]
+  precision=100%  recall=100%  f1=100%  conf=95%  lat=5.2s  cost=$0.00065
+  TP=5  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  contract_id [optional]
+       extracted: 'TECH-2026-001'
+       matches:   'TECH-2026-001' -- expected value found within extracted
+
+  [TP]  parties [required] [LLM-judge]
+       extracted: 'NovaTech Solutions Ltd. and Global Industries LLC'
+       matches:   'NovaTech Solutions Ltd. and Global Industries LLC' -- [LLM judge] The extracted value is an exact match to the expected value, capturing both parties completely and accurately.
+
+  [TP]  effective_date [required]
+       extracted: 'January 15, 2026'
+       matches:   'January 15, 2026' -- expected value found within extracted
+
+  [TP]  governing_law [optional] [LLM-judge]
+       extracted: 'Province of Ontario, Canada'
+       matches:   'Province of Ontario, Canada' -- [LLM judge] The extracted value is an exact match to the expected value.
+
+  [TP]  contract_value [optional]
+       extracted: '120000.0'
+       matches:   '120000.0' -- within 1% tolerance (0.00% delta)
+
+------------------------------------------------------------------
+  invoice_90211_digital.pdf  [Invoice]
+  precision=100%  recall=100%  f1=100%  conf=98%  lat=2.8s  cost=$0.00006
+  TP=3  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  invoice_number [required]
+       extracted: 'SERV-2026-88291'
+       matches:   'SERV-2026-88291' -- expected value found within extracted
+
+  [TP]  customer_name [required]
+       extracted: 'Global Industries LLC'
+       matches:   'Global Industries LLC' -- expected value found within extracted
+
+  [TP]  total_amount [required]
+       extracted: '2000.0'
+       matches:   '2000.0' -- within 1% tolerance (0.00% delta)
+
+------------------------------------------------------------------
+  fax_scan_48291.jpg  [Purchase Order]
+  precision=100%  recall=100%  f1=100%  conf=100%  lat=2.8s  cost=$0.00005
+  TP=3  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  po_number [required]
+       extracted: 'PO-98723'
+       matches:   'PO-98723' -- expected value found within extracted
+
+  [TP]  ship_to_company [optional]
+       extracted: 'Acme Manufacturing'
+       matches:   'Acme Manufacturing' -- expected value found within extracted
+
+  [TP]  quantity [required]
+       extracted: '50'
+       matches:   '50' -- exact integer match
+
+------------------------------------------------------------------
+  customer_complaint.png  [Complaint]
+  precision=100%  recall=100%  f1=100%  conf=100%  lat=2.9s  cost=$0.00006
+  TP=3  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  ticket_id [optional]
+       extracted: 'TS-COMPLAINT-9921'
+       matches:   'TS-COMPLAINT-9921' -- expected value found within extracted
+
+  [TP]  customer_name [required]
+       extracted: 'David Miller'
+       matches:   'David Miller' -- expected value found within extracted
+
+  [TP]  issue_summary [required] [LLM-judge]
+       extracted: 'The storage limit is still showing the free tier limit (5 GB) and has not updated to the paid plan (100 GB) despite payment confirmation.'
+       matches:   'Storage limits not updating after payment — paid plan not activated' -- [LLM judge] The extracted value accurately captures all the core information from the expected value. It states that storage limits are not updating despite payment confirmation, implying the paid plan is not activated, and even provides additional context with specific storage amounts.
+
+------------------------------------------------------------------
+  contract_TECH-2026-001.pdf  [Contract]
+  precision=100%  recall=100%  f1=100%  conf=100%  lat=5.5s  cost=$0.00067
+  TP=5  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  contract_id [optional]
+       extracted: 'TECH-2026-001'
+       matches:   'TECH-2026-001' -- expected value found within extracted
+
+  [TP]  parties [required] [LLM-judge]
+       extracted: 'NovaTech Solutions Ltd. and Global Industries LLC'
+       matches:   'NovaTech Solutions Ltd. and Global Industries LLC' -- [LLM judge] The extracted value is identical to the expected value, accurately capturing all parties mentioned.
+
+  [TP]  effective_date [required]
+       extracted: 'January 15, 2026'
+       matches:   'January 15, 2026' -- expected value found within extracted
+
+  [TP]  governing_law [optional] [LLM-judge]
+       extracted: 'Province of Ontario, Canada'
+       matches:   'Province of Ontario, Canada' -- [LLM judge] The extracted value "Province of Ontario, Canada" is identical to the expected value "Province of Ontario, Canada". Both values perfectly match, indicating a correct extraction.
+
+  [TP]  contract_value [optional]
+       extracted: '120000.0'
+       matches:   '120000.0' -- within 1% tolerance (0.00% delta)
+
+
+=================================================================
+EXPERIMENT 4: RETRIEVAL_STRATEGY
+=================================================================
+
+------------------------------------------------------------------
+  contract_TECH-2026-001.pdf  [Contract]
+  precision=80%  recall=100%  f1=89%  conf=90%  lat=3.5s  cost=$0.00012
+  TP=4  FP=1  FN=0  TN=0  HAL=0
+
+  [TP]  contract_id [optional]
+       extracted: 'TECH-2026-001'
+       matches:   'TECH-2026-001' -- expected value found within extracted
+
+  [TP]  parties [required] [LLM-judge]
+       extracted: 'NovaTech Solutions Ltd. and Global Industries LLC'
+       matches:   'NovaTech Solutions Ltd. and Global Industries LLC' -- [LLM judge] The extracted value is an exact match to the expected value, capturing both parties completely and accurately.
+
+  [TP]  effective_date [required]
+       extracted: 'January 15, 2026'
+       matches:   'January 15, 2026' -- expected value found within extracted
+
+  [FP]  governing_law [optional] [LLM-judge]
+       extracted: 'null'
+       expected:  'Province of Ontario, Canada'
+       reason:    [LLM judge] The extracted value is null, which does not capture the expected value 'Province of Ontario, Canada'. This is a complete miss.
+
+  [TP]  contract_value [optional]
+       extracted: '120000'
+       matches:   '120000.0' -- within 1% tolerance (0.00% delta)
+
+
+  [Document-level/contract_TECH-2026-001.pdf] Doc-level query='Extract contract_id, parties, effective_date, governing_law, cont...' top-5:
+    #1  chunk[48]  sim=0.7215  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+    #2  chunk[0]  sim=0.6759  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+    #3  chunk[2]  sim=0.6655  '2. CONTRACT VALUE AND PAYMENT TERMS The total contract value shall be $120,000.00 USD, payable as follows: Milestone Amount Due...'
+    #4  chunk[43]  sim=0.6636  'SCHEDULE L — DEFINITIONS L.1 Key Definitions  "Approved Record" means a document whose extracted fields have been confirmed by...'
+    #5  chunk[36]  sim=0.6635  'SCHEDULE E — PRICING AND INVOICING E.1 Fee Structure  The contract value of $120,000.00 USD covers all services described...'
+------------------------------------------------------------------
+  contract_TECH-2026-001.pdf  [Contract]
+  precision=100%  recall=100%  f1=100%  conf=100%  lat=5.1s  cost=$0.00020
+  TP=5  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  contract_id [optional]
+       extracted: 'TECH-2026-001'
+       matches:   'TECH-2026-001' -- expected value found within extracted
+
+  [TP]  parties [required] [LLM-judge]
+       extracted: 'NovaTech Solutions Ltd. and Global Industries LLC'
+       matches:   'NovaTech Solutions Ltd. and Global Industries LLC' -- [LLM judge] The extracted value is identical to the expected value, accurately capturing all parties mentioned.
+
+  [TP]  effective_date [required]
+       extracted: 'January 15, 2026'
+       matches:   'January 15, 2026' -- expected value found within extracted
+
+  [TP]  governing_law [optional] [LLM-judge]
+       extracted: 'Province of Ontario, Canada'
+       matches:   'Province of Ontario, Canada' -- [LLM judge] The extracted value is an exact match to the expected value.
+
+  [TP]  contract_value [optional]
+       extracted: '120000.0'
+       matches:   '120000.0' -- within 1% tolerance (0.00% delta)
+
+
+  [Field-targeted/contract_TECH-2026-001.pdf] 'contract_id' query='Find the contract_id in this document. Contract reference near th...' top-3:
+    #1  chunk[48]  sim=0.6982  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+    #2  chunk[43]  sim=0.6575  'SCHEDULE L — DEFINITIONS L.1 Key Definitions  "Approved Record" means a document whose extracted fields have been confirmed by...'
+    #3  chunk[0]  sim=0.6455  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+
+  [Field-targeted/contract_TECH-2026-001.pdf] 'parties' query='Find the parties in this document. Names of all parties in the op...' top-3:
+    #1  chunk[0]  sim=0.7726  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+    #2  chunk[31]  sim=0.7703  '18. ENTIRE AGREEMENT This Agreement constitutes the entire agreement between the parties and supersedes all prior negotiations, representations, warranties, and...'
+    #3  chunk[1]  sim=0.7297  '1. SCOPE OF SERVICES  NovaTech shall design and implement a multi-tenant AI document ingestion pipeline using Gemini 2.5 Flash....'
+
+  [Field-targeted/contract_TECH-2026-001.pdf] 'effective_date' query='Find the effective_date in this document. Date the contract takes...' top-3:
+    #1  chunk[48]  sim=0.6827  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+    #2  chunk[0]  sim=0.6734  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+    #3  chunk[1]  sim=0.6594  '1. SCOPE OF SERVICES  NovaTech shall design and implement a multi-tenant AI document ingestion pipeline using Gemini 2.5 Flash....'
+
+  [Field-targeted/contract_TECH-2026-001.pdf] 'governing_law' query='Find the governing_law in this document. Jurisdiction in the 'Gov...' top-3:
+    #1  chunk[30]  sim=0.7495  '17. GOVERNING LAW This Agreement shall be governed by and construed in accordance with the laws of the Province of...'
+    #2  chunk[9]  sim=0.6760  '6. DATA GOVERNANCE 6.1 Data Residency  All customer data shall be processed and stored within Canada unless explicitly agreed...'
+    #3  chunk[48]  sim=0.6564  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+
+  [Field-targeted/contract_TECH-2026-001.pdf] 'contract_value' query='Find the contract_value in this document. Total monetary value --...' top-3:
+    #1  chunk[2]  sim=0.7408  '2. CONTRACT VALUE AND PAYMENT TERMS The total contract value shall be $120,000.00 USD, payable as follows: Milestone Amount Due...'
+    #2  chunk[36]  sim=0.7103  'SCHEDULE E — PRICING AND INVOICING E.1 Fee Structure  The contract value of $120,000.00 USD covers all services described...'
+    #3  chunk[48]  sim=0.6872  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+
+=================================================================
+EXPERIMENT 5: CHUNK_SIZE
+=================================================================
+
+------------------------------------------------------------------
+  contract_TECH-2026-001.pdf  [Contract]
+  precision=80%  recall=100%  f1=89%  conf=95%  lat=8.9s  cost=$0.00020
+  TP=4  FP=1  FN=0  TN=0  HAL=0
+
+  [TP]  contract_id [optional]
+       extracted: 'TECH-2026-001'
+       matches:   'TECH-2026-001' -- expected value found within extracted
+
+  [TP]  parties [required] [LLM-judge]
+       extracted: 'NovaTech Solutions Ltd. and Global Industries LLC'
+       matches:   'NovaTech Solutions Ltd. and Global Industries LLC' -- [LLM judge] The extracted value is an exact match to the expected value, capturing both parties completely and accurately.
+
+  [TP]  effective_date [required]
+       extracted: 'January 15, 2026'
+       matches:   'January 15, 2026' -- expected value found within extracted
+
+  [FP]  governing_law [optional] [LLM-judge]
+       extracted: 'Toronto, Ontario'
+       expected:  'Province of Ontario, Canada'
+       reason:    [LLM judge] The extracted value "Toronto, Ontario" is incorrect for governing law. It specifies a city rather than the full provincial and national jurisdiction, and it misses the country "Canada" entirely. Governing law typically refers to a province/state or country, not a city.
+
+  [TP]  contract_value [optional]
+       extracted: '120000.0'
+       matches:   '120000.0' -- within 1% tolerance (0.00% delta)
+
+
+  [Word-window (500w, 50w ov/contract_TECH-2026-001.pdf] 'contract_id' query='Find the contract_id in this document. Contract reference near th...' top-3:
+    #1  chunk[0]  sim=0.6682  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+    #2  chunk[7]  sim=0.6552  'for Invoice and Purchase Order types.  Field-level precision ≥ 85% on the golden dataset for Complaint and Contract types....'
+    #3  chunk[6]  sim=0.6546  '$1,000.00 CAD require prior written approval from Client. SCHEDULE F — TECHNICAL SPECIFICATIONS F.1 System Architecture  Frontend: Streamlit web...'
+
+  [Word-window (500w, 50w ov/contract_TECH-2026-001.pdf] 'parties' query='Find the parties in this document. Names of all parties in the op...' top-3:
+    #1  chunk[0]  sim=0.7760  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+    #2  chunk[3]  sim=0.7571  'Client against third-party IP infringement claims related to the pipeline software. 12.2 Client Indemnification  Client shall indemnify NovaTech against...'
+    #3  chunk[8]  sim=0.7292  'confidence thresholds and review sensitivity — no AI-only approvals without explicit opt-in. SCHEDULE K — NOTICES K.1 Notice Requirements ...'
+
+  [Word-window (500w, 50w ov/contract_TECH-2026-001.pdf] 'effective_date' query='Find the effective_date in this document. Date the contract takes...' top-3:
+    #1  chunk[0]  sim=0.6767  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+    #2  chunk[7]  sim=0.6657  'for Invoice and Purchase Order types.  Field-level precision ≥ 85% on the golden dataset for Complaint and Contract types....'
+    #3  chunk[6]  sim=0.6651  '$1,000.00 CAD require prior written approval from Client. SCHEDULE F — TECHNICAL SPECIFICATIONS F.1 System Architecture  Frontend: Streamlit web...'
+
+  [Word-window (500w, 50w ov/contract_TECH-2026-001.pdf] 'governing_law' query='Find the governing_law in this document. Jurisdiction in the 'Gov...' top-3:
+    #1  chunk[3]  sim=0.6702  'Client against third-party IP infringement claims related to the pipeline software. 12.2 Client Indemnification  Client shall indemnify NovaTech against...'
+    #2  chunk[4]  sim=0.6620  '(Ongoing): Model governance, threshold calibration, and continuous improvement. A.2 Deliverables  D1: Technical architecture document (Week 2).  D2: Working...'
+    #3  chunk[8]  sim=0.6568  'confidence thresholds and review sensitivity — no AI-only approvals without explicit opt-in. SCHEDULE K — NOTICES K.1 Notice Requirements ...'
+
+  [Word-window (500w, 50w ov/contract_TECH-2026-001.pdf] 'contract_value' query='Find the contract_value in this document. Total monetary value --...' top-3:
+    #1  chunk[6]  sim=0.7112  '$1,000.00 CAD require prior written approval from Client. SCHEDULE F — TECHNICAL SPECIFICATIONS F.1 System Architecture  Frontend: Streamlit web...'
+    #2  chunk[0]  sim=0.6909  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+    #3  chunk[7]  sim=0.6857  'for Invoice and Purchase Order types.  Field-level precision ≥ 85% on the golden dataset for Complaint and Contract types....'
+------------------------------------------------------------------
+  contract_TECH-2026-001.pdf  [Contract]
+  precision=100%  recall=100%  f1=100%  conf=98%  lat=28.8s  cost=$0.00020
+  TP=5  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  contract_id [optional]
+       extracted: 'TECH-2026-001'
+       matches:   'TECH-2026-001' -- expected value found within extracted
+
+  [TP]  parties [required] [LLM-judge]
+       extracted: 'NovaTech Solutions Ltd. and Global Industries LLC'
+       matches:   'NovaTech Solutions Ltd. and Global Industries LLC' -- [LLM judge] The extracted value is identical to the expected value, accurately capturing all parties mentioned.
+
+  [TP]  effective_date [required]
+       extracted: 'January 15, 2026'
+       matches:   'January 15, 2026' -- expected value found within extracted
+
+  [TP]  governing_law [optional] [LLM-judge]
+       extracted: 'Province of Ontario, Canada'
+       matches:   'Province of Ontario, Canada' -- [LLM judge] The extracted value is an exact match to the expected value.
+
+  [TP]  contract_value [optional]
+       extracted: '120000'
+       matches:   '120000.0' -- within 1% tolerance (0.00% delta)
+
+
+  [Section-aware (by clause//contract_TECH-2026-001.pdf] 'contract_id' query='Find the contract_id in this document. Contract reference near th...' top-3:
+    #1  chunk[48]  sim=0.6982  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+    #2  chunk[43]  sim=0.6575  'SCHEDULE L — DEFINITIONS L.1 Key Definitions  "Approved Record" means a document whose extracted fields have been confirmed by...'
+    #3  chunk[0]  sim=0.6455  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+
+  [Section-aware (by clause//contract_TECH-2026-001.pdf] 'parties' query='Find the parties in this document. Names of all parties in the op...' top-3:
+    #1  chunk[0]  sim=0.7726  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+    #2  chunk[31]  sim=0.7703  '18. ENTIRE AGREEMENT This Agreement constitutes the entire agreement between the parties and supersedes all prior negotiations, representations, warranties, and...'
+    #3  chunk[1]  sim=0.7297  '1. SCOPE OF SERVICES  NovaTech shall design and implement a multi-tenant AI document ingestion pipeline using Gemini 2.5 Flash....'
+
+  [Section-aware (by clause//contract_TECH-2026-001.pdf] 'effective_date' query='Find the effective_date in this document. Date the contract takes...' top-3:
+    #1  chunk[48]  sim=0.6827  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+    #2  chunk[0]  sim=0.6734  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+    #3  chunk[1]  sim=0.6594  '1. SCOPE OF SERVICES  NovaTech shall design and implement a multi-tenant AI document ingestion pipeline using Gemini 2.5 Flash....'
+
+  [Section-aware (by clause//contract_TECH-2026-001.pdf] 'governing_law' query='Find the governing_law in this document. Jurisdiction in the 'Gov...' top-3:
+    #1  chunk[30]  sim=0.7495  '17. GOVERNING LAW This Agreement shall be governed by and construed in accordance with the laws of the Province of...'
+    #2  chunk[9]  sim=0.6760  '6. DATA GOVERNANCE 6.1 Data Residency  All customer data shall be processed and stored within Canada unless explicitly agreed...'
+    #3  chunk[48]  sim=0.6564  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+
+  [Section-aware (by clause//contract_TECH-2026-001.pdf] 'contract_value' query='Find the contract_value in this document. Total monetary value --...' top-3:
+    #1  chunk[2]  sim=0.7408  '2. CONTRACT VALUE AND PAYMENT TERMS The total contract value shall be $120,000.00 USD, payable as follows: Milestone Amount Due...'
+    #2  chunk[36]  sim=0.7103  'SCHEDULE E — PRICING AND INVOICING E.1 Fee Structure  The contract value of $120,000.00 USD covers all services described...'
+    #3  chunk[48]  sim=0.6872  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+
+=================================================================
+EXPERIMENT 6: RETRIEVAL_K
+=================================================================
+
+------------------------------------------------------------------
+  contract_TECH-2026-001.pdf  [Contract]
+  precision=100%  recall=100%  f1=100%  conf=98%  lat=6.0s  cost=$0.00011
+  TP=5  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  contract_id [optional]
+       extracted: 'TECH-2026-001'
+       matches:   'TECH-2026-001' -- expected value found within extracted
+
+  [TP]  parties [required] [LLM-judge]
+       extracted: 'NovaTech Solutions Ltd. and Global Industries LLC'
+       matches:   'NovaTech Solutions Ltd. and Global Industries LLC' -- [LLM judge] The extracted value is an exact match to the expected value, capturing both parties completely and accurately.
+
+  [TP]  effective_date [required]
+       extracted: 'January 15, 2026'
+       matches:   'January 15, 2026' -- expected value found within extracted
+
+  [TP]  governing_law [optional] [LLM-judge]
+       extracted: 'Province of Ontario, Canada'
+       matches:   'Province of Ontario, Canada' -- [LLM judge] The extracted value is an exact match to the expected value.
+
+  [TP]  contract_value [optional]
+       extracted: '120000.0'
+       matches:   '120000.0' -- within 1% tolerance (0.00% delta)
+
+
+  [top-1/contract_TECH-2026-001.pdf] 'contract_id' query='Find the contract_id in this document. Contract reference near th...' top-1:
+    #1  chunk[48]  sim=0.6982  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+
+  [top-1/contract_TECH-2026-001.pdf] 'parties' query='Find the parties in this document. Names of all parties in the op...' top-1:
+    #1  chunk[0]  sim=0.7726  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+
+  [top-1/contract_TECH-2026-001.pdf] 'effective_date' query='Find the effective_date in this document. Date the contract takes...' top-1:
+    #1  chunk[48]  sim=0.6827  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+
+  [top-1/contract_TECH-2026-001.pdf] 'governing_law' query='Find the governing_law in this document. Jurisdiction in the 'Gov...' top-1:
+    #1  chunk[30]  sim=0.7495  '17. GOVERNING LAW This Agreement shall be governed by and construed in accordance with the laws of the Province of...'
+
+  [top-1/contract_TECH-2026-001.pdf] 'contract_value' query='Find the contract_value in this document. Total monetary value --...' top-1:
+    #1  chunk[2]  sim=0.7408  '2. CONTRACT VALUE AND PAYMENT TERMS The total contract value shall be $120,000.00 USD, payable as follows: Milestone Amount Due...'
+------------------------------------------------------------------
+  contract_TECH-2026-001.pdf  [Contract]
+  precision=100%  recall=100%  f1=100%  conf=98%  lat=5.8s  cost=$0.00020
+  TP=5  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  contract_id [optional]
+       extracted: 'TECH-2026-001'
+       matches:   'TECH-2026-001' -- expected value found within extracted
+
+  [TP]  parties [required] [LLM-judge]
+       extracted: 'NovaTech Solutions Ltd. and Global Industries LLC'
+       matches:   'NovaTech Solutions Ltd. and Global Industries LLC' -- [LLM judge] The extracted value is identical to the expected value, accurately capturing all parties mentioned.
+
+  [TP]  effective_date [required]
+       extracted: 'January 15, 2026'
+       matches:   'January 15, 2026' -- expected value found within extracted
+
+  [TP]  governing_law [optional] [LLM-judge]
+       extracted: 'Province of Ontario, Canada'
+       matches:   'Province of Ontario, Canada' -- [LLM judge] The extracted value is an exact match to the expected value.
+
+  [TP]  contract_value [optional]
+       extracted: '120000.0'
+       matches:   '120000.0' -- within 1% tolerance (0.00% delta)
+
+
+  [top-3/contract_TECH-2026-001.pdf] 'contract_id' query='Find the contract_id in this document. Contract reference near th...' top-3:
+    #1  chunk[48]  sim=0.6982  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+    #2  chunk[43]  sim=0.6575  'SCHEDULE L — DEFINITIONS L.1 Key Definitions  "Approved Record" means a document whose extracted fields have been confirmed by...'
+    #3  chunk[0]  sim=0.6455  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+
+  [top-3/contract_TECH-2026-001.pdf] 'parties' query='Find the parties in this document. Names of all parties in the op...' top-3:
+    #1  chunk[0]  sim=0.7726  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+    #2  chunk[31]  sim=0.7703  '18. ENTIRE AGREEMENT This Agreement constitutes the entire agreement between the parties and supersedes all prior negotiations, representations, warranties, and...'
+    #3  chunk[1]  sim=0.7297  '1. SCOPE OF SERVICES  NovaTech shall design and implement a multi-tenant AI document ingestion pipeline using Gemini 2.5 Flash....'
+
+  [top-3/contract_TECH-2026-001.pdf] 'effective_date' query='Find the effective_date in this document. Date the contract takes...' top-3:
+    #1  chunk[48]  sim=0.6827  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+    #2  chunk[0]  sim=0.6734  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+    #3  chunk[1]  sim=0.6594  '1. SCOPE OF SERVICES  NovaTech shall design and implement a multi-tenant AI document ingestion pipeline using Gemini 2.5 Flash....'
+
+  [top-3/contract_TECH-2026-001.pdf] 'governing_law' query='Find the governing_law in this document. Jurisdiction in the 'Gov...' top-3:
+    #1  chunk[30]  sim=0.7495  '17. GOVERNING LAW This Agreement shall be governed by and construed in accordance with the laws of the Province of...'
+    #2  chunk[9]  sim=0.6760  '6. DATA GOVERNANCE 6.1 Data Residency  All customer data shall be processed and stored within Canada unless explicitly agreed...'
+    #3  chunk[48]  sim=0.6564  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+
+  [top-3/contract_TECH-2026-001.pdf] 'contract_value' query='Find the contract_value in this document. Total monetary value --...' top-3:
+    #1  chunk[2]  sim=0.7408  '2. CONTRACT VALUE AND PAYMENT TERMS The total contract value shall be $120,000.00 USD, payable as follows: Milestone Amount Due...'
+    #2  chunk[36]  sim=0.7103  'SCHEDULE E — PRICING AND INVOICING E.1 Fee Structure  The contract value of $120,000.00 USD covers all services described...'
+    #3  chunk[48]  sim=0.6872  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+------------------------------------------------------------------
+  contract_TECH-2026-001.pdf  [Contract]
+  precision=100%  recall=100%  f1=100%  conf=98%  lat=4.8s  cost=$0.00020
+  TP=5  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  contract_id [optional]
+       extracted: 'TECH-2026-001'
+       matches:   'TECH-2026-001' -- expected value found within extracted
+
+  [TP]  parties [required] [LLM-judge]
+       extracted: 'NovaTech Solutions Ltd. and Global Industries LLC'
+       matches:   'NovaTech Solutions Ltd. and Global Industries LLC' -- [LLM judge] The extracted value is identical to the expected value, accurately capturing all parties mentioned.
+
+  [TP]  effective_date [required]
+       extracted: 'January 15, 2026'
+       matches:   'January 15, 2026' -- expected value found within extracted
+
+  [TP]  governing_law [optional] [LLM-judge]
+       extracted: 'Province of Ontario, Canada'
+       matches:   'Province of Ontario, Canada' -- [LLM judge] The extracted value is an exact match to the expected value.
+
+  [TP]  contract_value [optional]
+       extracted: '120000.0'
+       matches:   '120000.0' -- within 1% tolerance (0.00% delta)
+
+
+  [top-5/contract_TECH-2026-001.pdf] 'contract_id' query='Find the contract_id in this document. Contract reference near th...' top-5:
+    #1  chunk[48]  sim=0.6982  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+    #2  chunk[43]  sim=0.6575  'SCHEDULE L — DEFINITIONS L.1 Key Definitions  "Approved Record" means a document whose extracted fields have been confirmed by...'
+    #3  chunk[0]  sim=0.6455  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+    #4  chunk[31]  sim=0.6321  '18. ENTIRE AGREEMENT This Agreement constitutes the entire agreement between the parties and supersedes all prior negotiations, representations, warranties, and...'
+    #5  chunk[1]  sim=0.6298  '1. SCOPE OF SERVICES  NovaTech shall design and implement a multi-tenant AI document ingestion pipeline using Gemini 2.5 Flash....'
+
+  [top-5/contract_TECH-2026-001.pdf] 'parties' query='Find the parties in this document. Names of all parties in the op...' top-5:
+    #1  chunk[0]  sim=0.7726  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+    #2  chunk[31]  sim=0.7703  '18. ENTIRE AGREEMENT This Agreement constitutes the entire agreement between the parties and supersedes all prior negotiations, representations, warranties, and...'
+    #3  chunk[1]  sim=0.7297  '1. SCOPE OF SERVICES  NovaTech shall design and implement a multi-tenant AI document ingestion pipeline using Gemini 2.5 Flash....'
+    #4  chunk[3]  sim=0.7025  '3. INTELLECTUAL PROPERTY  All deliverables — system prompts, extraction schemas, pipeline architecture — remain NovaTech property until full payment....'
+    #5  chunk[42]  sim=0.7021  'SCHEDULE K — NOTICES K.1 Notice Requirements  All notices under this Agreement shall be in writing and delivered by...'
+
+  [top-5/contract_TECH-2026-001.pdf] 'effective_date' query='Find the effective_date in this document. Date the contract takes...' top-5:
+    #1  chunk[48]  sim=0.6827  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+    #2  chunk[0]  sim=0.6734  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+    #3  chunk[1]  sim=0.6594  '1. SCOPE OF SERVICES  NovaTech shall design and implement a multi-tenant AI document ingestion pipeline using Gemini 2.5 Flash....'
+    #4  chunk[29]  sim=0.6510  '16. TERM AND TERMINATION This Agreement shall commence on the Effective Date and continue for twelve (12) months. Either party...'
+    #5  chunk[40]  sim=0.6414  'SCHEDULE I — KNOWLEDGE TRANSFER I.1 Documentation  Architecture overview: system components, data flows, and integration points.  Operator guide:...'
+
+  [top-5/contract_TECH-2026-001.pdf] 'governing_law' query='Find the governing_law in this document. Jurisdiction in the 'Gov...' top-5:
+    #1  chunk[30]  sim=0.7495  '17. GOVERNING LAW This Agreement shall be governed by and construed in accordance with the laws of the Province of...'
+    #2  chunk[9]  sim=0.6760  '6. DATA GOVERNANCE 6.1 Data Residency  All customer data shall be processed and stored within Canada unless explicitly agreed...'
+    #3  chunk[48]  sim=0.6564  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+    #4  chunk[0]  sim=0.6405  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+    #5  chunk[42]  sim=0.6374  'SCHEDULE K — NOTICES K.1 Notice Requirements  All notices under this Agreement shall be in writing and delivered by...'
+
+  [top-5/contract_TECH-2026-001.pdf] 'contract_value' query='Find the contract_value in this document. Total monetary value --...' top-5:
+    #1  chunk[2]  sim=0.7408  '2. CONTRACT VALUE AND PAYMENT TERMS The total contract value shall be $120,000.00 USD, payable as follows: Milestone Amount Due...'
+    #2  chunk[36]  sim=0.7103  'SCHEDULE E — PRICING AND INVOICING E.1 Fee Structure  The contract value of $120,000.00 USD covers all services described...'
+    #3  chunk[48]  sim=0.6872  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+    #4  chunk[1]  sim=0.6784  '1. SCOPE OF SERVICES  NovaTech shall design and implement a multi-tenant AI document ingestion pipeline using Gemini 2.5 Flash....'
+    #5  chunk[32]  sim=0.6741  'SCHEDULE A — STATEMENT OF WORK A.1 Project Phases  Phase 1 (Weeks 1–4): Requirements gathering, architecture design, environment setup,...'
+
+=================================================================
+EXPERIMENT 7: QUERY_FORMULATION
+=================================================================
+
+------------------------------------------------------------------
+  contract_TECH-2026-001.pdf  [Contract]
+  precision=60%  recall=100%  f1=75%  conf=85%  lat=4.8s  cost=$0.00019
+  TP=3  FP=2  FN=0  TN=0  HAL=0
+
+  [FP]  contract_id [optional]
+       extracted: 'null'
+       expected:  'TECH-2026-001'
+       reason:    missing words: tech-2026-001. extra words: null.
+
+  [TP]  parties [required] [LLM-judge]
+       extracted: 'NovaTech Solutions Ltd. and Global Industries LLC'
+       matches:   'NovaTech Solutions Ltd. and Global Industries LLC' -- [LLM judge] The extracted value is an exact match to the expected value, capturing both parties completely and accurately.
+
+  [FP]  effective_date [required]
+       extracted: 'null'
+       expected:  'January 15, 2026'
+       reason:    missing words: 15,, 2026, january. extra words: null.
+
+  [TP]  governing_law [optional] [LLM-judge]
+       extracted: 'Province of Ontario, Canada'
+       matches:   'Province of Ontario, Canada' -- [LLM judge] The extracted value "Province of Ontario, Canada" is identical to the expected value "Province of Ontario, Canada". Both values perfectly match, indicating a correct extraction.
+
+  [TP]  contract_value [optional]
+       extracted: '120000.0'
+       matches:   '120000.0' -- within 1% tolerance (0.00% delta)
+
+
+  [Generic  ('What is {field_key}?'/contract_TECH-2026-001.pdf] 'contract_id' query='What is the contract_id?...' top-3:
+    #1  chunk[48]  sim=0.5896  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+    #2  chunk[43]  sim=0.5705  'SCHEDULE L — DEFINITIONS L.1 Key Definitions  "Approved Record" means a document whose extracted fields have been confirmed by...'
+    #3  chunk[37]  sim=0.5691  'SCHEDULE F — TECHNICAL SPECIFICATIONS F.1 System Architecture  Frontend: Streamlit web application hosted on Google Cloud Run.  Backend:...'
+
+  [Generic  ('What is {field_key}?'/contract_TECH-2026-001.pdf] 'parties' query='What is the parties?...' top-3:
+    #1  chunk[48]  sim=0.5676  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+    #2  chunk[29]  sim=0.5653  '16. TERM AND TERMINATION This Agreement shall commence on the Effective Date and continue for twelve (12) months. Either party...'
+    #3  chunk[31]  sim=0.5638  '18. ENTIRE AGREEMENT This Agreement constitutes the entire agreement between the parties and supersedes all prior negotiations, representations, warranties, and...'
+
+  [Generic  ('What is {field_key}?'/contract_TECH-2026-001.pdf] 'effective_date' query='What is the effective_date?...' top-3:
+    #1  chunk[29]  sim=0.5751  '16. TERM AND TERMINATION This Agreement shall commence on the Effective Date and continue for twelve (12) months. Either party...'
+    #2  chunk[43]  sim=0.5715  'SCHEDULE L — DEFINITIONS L.1 Key Definitions  "Approved Record" means a document whose extracted fields have been confirmed by...'
+    #3  chunk[17]  sim=0.5612  '8.3 Golden Dataset  NovaTech shall maintain a labelled golden dataset of minimum fifty (50) documents per document type. ...'
+
+  [Generic  ('What is {field_key}?'/contract_TECH-2026-001.pdf] 'governing_law' query='What is the governing_law?...' top-3:
+    #1  chunk[30]  sim=0.6917  '17. GOVERNING LAW This Agreement shall be governed by and construed in accordance with the laws of the Province of...'
+    #2  chunk[48]  sim=0.5886  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+    #3  chunk[9]  sim=0.5865  '6. DATA GOVERNANCE 6.1 Data Residency  All customer data shall be processed and stored within Canada unless explicitly agreed...'
+
+  [Generic  ('What is {field_key}?'/contract_TECH-2026-001.pdf] 'contract_value' query='What is the contract_value?...' top-3:
+    #1  chunk[2]  sim=0.6674  '2. CONTRACT VALUE AND PAYMENT TERMS The total contract value shall be $120,000.00 USD, payable as follows: Milestone Amount Due...'
+    #2  chunk[36]  sim=0.6175  'SCHEDULE E — PRICING AND INVOICING E.1 Fee Structure  The contract value of $120,000.00 USD covers all services described...'
+    #3  chunk[43]  sim=0.5964  'SCHEDULE L — DEFINITIONS L.1 Key Definitions  "Approved Record" means a document whose extracted fields have been confirmed by...'
+------------------------------------------------------------------
+  contract_TECH-2026-001.pdf  [Contract]
+  precision=100%  recall=100%  f1=100%  conf=98%  lat=5.3s  cost=$0.00020
+  TP=5  FP=0  FN=0  TN=0  HAL=0
+
+  [TP]  contract_id [optional]
+       extracted: 'TECH-2026-001'
+       matches:   'TECH-2026-001' -- expected value found within extracted
+
+  [TP]  parties [required] [LLM-judge]
+       extracted: 'NovaTech Solutions Ltd. and Global Industries LLC'
+       matches:   'NovaTech Solutions Ltd. and Global Industries LLC' -- [LLM judge] The extracted value is an exact match to the expected value, capturing both parties completely and accurately.
+
+  [TP]  effective_date [required]
+       extracted: 'January 15, 2026'
+       matches:   'January 15, 2026' -- expected value found within extracted
+
+  [TP]  governing_law [optional] [LLM-judge]
+       extracted: 'Province of Ontario, Canada'
+       matches:   'Province of Ontario, Canada' -- [LLM judge] The extracted value is an exact match to the expected value.
+
+  [TP]  contract_value [optional]
+       extracted: '120000'
+       matches:   '120000.0' -- within 1% tolerance (0.00% delta)
+
+
+  [Specific ('Find {field_key}: {de/contract_TECH-2026-001.pdf] 'contract_id' query='Find the contract_id in this document. Contract reference near th...' top-3:
+    #1  chunk[48]  sim=0.6982  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+    #2  chunk[43]  sim=0.6575  'SCHEDULE L — DEFINITIONS L.1 Key Definitions  "Approved Record" means a document whose extracted fields have been confirmed by...'
+    #3  chunk[0]  sim=0.6455  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+
+  [Specific ('Find {field_key}: {de/contract_TECH-2026-001.pdf] 'parties' query='Find the parties in this document. Names of all parties in the op...' top-3:
+    #1  chunk[0]  sim=0.7726  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+    #2  chunk[31]  sim=0.7703  '18. ENTIRE AGREEMENT This Agreement constitutes the entire agreement between the parties and supersedes all prior negotiations, representations, warranties, and...'
+    #3  chunk[1]  sim=0.7297  '1. SCOPE OF SERVICES  NovaTech shall design and implement a multi-tenant AI document ingestion pipeline using Gemini 2.5 Flash....'
+
+  [Specific ('Find {field_key}: {de/contract_TECH-2026-001.pdf] 'effective_date' query='Find the effective_date in this document. Date the contract takes...' top-3:
+    #1  chunk[48]  sim=0.6827  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+    #2  chunk[0]  sim=0.6734  'TECHNOLOGY SERVICES AGREEMENT Contract ID: TECH-2026-001 THIS AGREEMENT is entered into as of January 15, 2026 (the "Effective Date") by...'
+    #3  chunk[1]  sim=0.6594  '1. SCOPE OF SERVICES  NovaTech shall design and implement a multi-tenant AI document ingestion pipeline using Gemini 2.5 Flash....'
+
+  [Specific ('Find {field_key}: {de/contract_TECH-2026-001.pdf] 'governing_law' query='Find the governing_law in this document. Jurisdiction in the 'Gov...' top-3:
+    #1  chunk[30]  sim=0.7495  '17. GOVERNING LAW This Agreement shall be governed by and construed in accordance with the laws of the Province of...'
+    #2  chunk[9]  sim=0.6760  '6. DATA GOVERNANCE 6.1 Data Residency  All customer data shall be processed and stored within Canada unless explicitly agreed...'
+    #3  chunk[48]  sim=0.6564  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'
+
+  [Specific ('Find {field_key}: {de/contract_TECH-2026-001.pdf] 'contract_value' query='Find the contract_value in this document. Total monetary value --...' top-3:
+    #1  chunk[2]  sim=0.7408  '2. CONTRACT VALUE AND PAYMENT TERMS The total contract value shall be $120,000.00 USD, payable as follows: Milestone Amount Due...'
+    #2  chunk[36]  sim=0.7103  'SCHEDULE E — PRICING AND INVOICING E.1 Fee Structure  The contract value of $120,000.00 USD covers all services described...'
+    #3  chunk[48]  sim=0.6872  'EXHIBIT 1 — DOCUMENT TYPE REFERENCE Invoice Billing document from vendor to client. Fields: invoice_number, customer_name, total_amount. Keywords: INVOICE, TAX...'

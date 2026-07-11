@@ -1,0 +1,54 @@
+{
+  "_instructions": "Choices locked based on experiment results. Run: python scripts/run_evals.py --api-key YOUR_KEY --promote",
+  "version": 1,
+  "status": "eval_failed",
+  "model": "gemini-2.5-flash",
+  "_model_why": "Same precision as GPT-4o. Significantly cheaper. GPT-4o confidence always returned 0.5 (calibration issue).",
+  "call_mode": "one_call",
+  "_call_mode_why": "One image sent once. 4x cheaper on long docs. Two-call contract_value failure was a RAG context assembly artefact, not a structural advantage of two calls.",
+  "prompt_quality": "four_layer_prompt",
+  "_prompt_quality_why": "Minimal prompt scored FP on complaint issue_summary \u00e2\u20ac\u201d extracted 'Storage limits not updating after payment' but missed 'paid plan not activated'. Four-layer got it right. Delta proves Document Types configuration earns its complexity.",
+  "retrieval_strategy": "field_targeted",
+  "_retrieval_strategy_why": "Contract ID is on page 1. Governing Law is on page 28. One doc-level query retrieves page 1 content for everything. Field-targeted gives each field its own retrieved section.",
+  "chunk_config": {
+    "strategy": "section_aware",
+    "_why": "Word-window (500w 50w) buried the 4-line Governing Law clause inside a window mixing sections 16, 17, and 18. Embedding scored 0.67 against indemnification content \u00e2\u20ac\u201d wrong chunk. Section-aware gives clause 17 its own 44-word chunk. Embedding scores clearly above noise."
+  },
+  "retrieval_k": 3,
+  "_retrieval_k_why": "K=1 fails when the top chunk is wrong and there is no backup. K=5 adds noise and lowered confidence to 60%. K=3 is the right balance.",
+  "query_formulation": "specific_query",
+  "_query_formulation_why": "Generic 'What is governing_law?' scored sim=0.57 with no discrimination between chunks. Specific query including field description scored sim=0.77 and retrieved the correct section. Largest precision delta of all seven experiments.",
+  "thresholds": {
+    "Invoice": 0.85,
+    "Purchase Order": 0.85,
+    "Complaint": 0.92,
+    "Contract": 0.92
+  },
+  "_thresholds_why": "Invoice and PO are structured, deterministic fields \u00e2\u20ac\u201d lower threshold acceptable. Complaint and Contract have semantic fields (issue_summary, governing_law, parties) judged by LLM \u00e2\u20ac\u201d higher threshold required.",
+  "eval_results": {
+    "version": 2,
+    "timestamp": "20260710_070950",
+    "overall_precision": 0.8166666666666667,
+    "type_metrics": {
+      "Invoice": {
+        "avg_precision": 1.0,
+        "n_docs": 1
+      },
+      "Purchase Order": {
+        "avg_precision": 1.0,
+        "n_docs": 1
+      },
+      "Complaint": {
+        "avg_precision": 0.6666666666666666,
+        "n_docs": 1
+      },
+      "Contract": {
+        "avg_precision": 0.6,
+        "n_docs": 1
+      }
+    },
+    "total_cost": 0.0010573499999999999,
+    "passes_promotion": false
+  },
+  "source_run": null
+}
