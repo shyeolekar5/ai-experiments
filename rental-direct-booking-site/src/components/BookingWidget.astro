@@ -1,0 +1,186 @@
+---
+// The only interactive island on the home page: date range + guest count.
+// Selection is written to localStorage so the Enquire page can prefill from it.
+---
+<div class="rule-b" style="background:var(--color-surface)">
+  <div class="booking-grid" style="display:grid;grid-template-columns:1.1fr 1fr 1fr 0.9fr auto;align-items:end;gap:0">
+    <div style="padding:20px 24px;border-right:1px solid var(--color-divider)">
+      <div class="mono" style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-neutral-700);margin-bottom:8px">Check availability</div>
+      <div id="bw-stay" style="font-family:var(--font-heading);font-weight:800;font-size:20px">Your dates</div>
+    </div>
+    <button type="button" id="bw-checkin-btn" style="text-align:left;padding:20px 24px;border:0;border-right:1px solid var(--color-divider);background:transparent;cursor:pointer;font:inherit;color:inherit">
+      <div class="mono" style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-neutral-700);margin-bottom:8px">Check-in</div>
+      <div id="bw-checkin-label" style="font-family:var(--font-heading);font-weight:800;font-size:18px">Add date</div>
+    </button>
+    <button type="button" id="bw-checkout-btn" style="text-align:left;padding:20px 24px;border:0;border-right:1px solid var(--color-divider);background:transparent;cursor:pointer;font:inherit;color:inherit">
+      <div class="mono" style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-neutral-700);margin-bottom:8px">Check-out</div>
+      <div id="bw-checkout-label" style="font-family:var(--font-heading);font-weight:800;font-size:18px">Add date</div>
+    </button>
+    <div style="padding:20px 24px;border-right:1px solid var(--color-divider)">
+      <div class="mono" style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-neutral-700);margin-bottom:8px">Guests · max 6</div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <button type="button" id="bw-guest-dec" class="btn btn-secondary" style="width:30px;height:30px;padding:0;justify-content:center">−</button>
+        <span id="bw-guest-count" style="font-family:var(--font-heading);font-weight:800;font-size:18px;min-width:16px;text-align:center">2</span>
+        <button type="button" id="bw-guest-inc" class="btn btn-secondary" style="width:30px;height:30px;padding:0;justify-content:center">+</button>
+      </div>
+    </div>
+    <div style="padding:20px 24px">
+      <a href="/enquire" id="bw-cta" class="btn btn-primary" style="height:46px;padding-inline:22px;font-size:15px">Enquire direct →</a>
+    </div>
+  </div>
+
+  <div id="bw-calendar" class="rule-t" style="padding:20px 24px;display:none;gap:40px;align-items:flex-start;flex-wrap:wrap">
+    <div style="width:340px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <button type="button" id="bw-prev" class="btn btn-secondary" style="width:30px;height:30px;padding:0;justify-content:center">‹</button>
+        <div id="bw-month-label" style="font-family:var(--font-heading);font-weight:800;font-size:16px;flex:1">—</div>
+        <button type="button" id="bw-next" class="btn btn-secondary" style="width:30px;height:30px;padding:0;justify-content:center">›</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:2px">
+        {["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map((d) => (
+          <div class="mono" style="font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-neutral-600);padding:4px 0">{d}</div>
+        ))}
+      </div>
+      <div id="bw-days" style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px"></div>
+    </div>
+    <div style="max-width:300px">
+      <div id="bw-picking-label" class="mono" style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:10px">Picking check-in</div>
+      <p class="text-muted" style="font-size:13px">Dates shown are for enquiry only — send them over and we will confirm by return. Two-night minimum on short stays.</p>
+      <button type="button" id="bw-clear" class="btn btn-secondary">Clear dates</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const STORAGE_KEY = "bh_booking";
+
+  type State = { checkIn: string | null; checkOut: string | null; guests: number; picking: "in" | "out" | null; view: string };
+
+  function load(): State {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        return { checkIn: parsed.checkIn ?? null, checkOut: parsed.checkOut ?? null, guests: parsed.guests ?? 2, picking: null, view: new Date().toISOString() };
+      }
+    } catch {}
+    return { checkIn: null, checkOut: null, guests: 2, picking: null, view: new Date().toISOString() };
+  }
+
+  function save(s: State) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ checkIn: s.checkIn, checkOut: s.checkOut, guests: s.guests }));
+  }
+
+  function fmt(iso: string | null) {
+    if (!iso) return "Add date";
+    const d = new Date(iso);
+    return d.getDate() + " " + MONTHS[d.getMonth()].slice(0, 3) + " " + d.getFullYear();
+  }
+
+  function dateOnly(d: Date) {
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate()).toISOString();
+  }
+
+  const state: State = load();
+  let viewDate = state.checkIn ? new Date(state.checkIn) : new Date();
+  viewDate = new Date(viewDate.getFullYear(), viewDate.getMonth(), 1);
+
+  const el = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+  const stayEl = el<HTMLDivElement>("bw-stay");
+  const checkinLabel = el<HTMLDivElement>("bw-checkin-label");
+  const checkoutLabel = el<HTMLDivElement>("bw-checkout-label");
+  const checkinBtn = el<HTMLButtonElement>("bw-checkin-btn");
+  const checkoutBtn = el<HTMLButtonElement>("bw-checkout-btn");
+  const guestCount = el<HTMLSpanElement>("bw-guest-count");
+  const calendar = el<HTMLDivElement>("bw-calendar");
+  const monthLabel = el<HTMLDivElement>("bw-month-label");
+  const daysGrid = el<HTMLDivElement>("bw-days");
+  const pickingLabel = el<HTMLDivElement>("bw-picking-label");
+  const cta = el<HTMLAnchorElement>("bw-cta");
+
+  function render() {
+    const nights = state.checkIn && state.checkOut
+      ? Math.round((new Date(state.checkOut).getTime() - new Date(state.checkIn).getTime()) / 86400000)
+      : 0;
+    stayEl.textContent = nights ? nights + (nights === 1 ? " night" : " nights") : "Your dates";
+    checkinLabel.textContent = fmt(state.checkIn);
+    checkoutLabel.textContent = fmt(state.checkOut);
+    checkinBtn.style.background = state.picking === "in" ? "var(--color-accent-100)" : "transparent";
+    checkoutBtn.style.background = state.picking === "out" ? "var(--color-accent-100)" : "transparent";
+    guestCount.textContent = String(state.guests);
+    calendar.style.display = state.picking === null ? "none" : "flex";
+    pickingLabel.textContent = "Picking " + (state.picking === "out" ? "check-out" : "check-in");
+    monthLabel.textContent = MONTHS[viewDate.getMonth()] + " " + viewDate.getFullYear();
+
+    const params = new URLSearchParams();
+    if (state.checkIn) params.set("in", state.checkIn);
+    if (state.checkOut) params.set("out", state.checkOut);
+    params.set("guests", String(state.guests));
+    cta.href = "/enquire?" + params.toString();
+
+    renderDays();
+    save(state);
+  }
+
+  function renderDays() {
+    daysGrid.innerHTML = "";
+    const first = new Date(viewDate.getFullYear(), viewDate.getMonth(), 1);
+    const lead = (first.getDay() + 6) % 7;
+    const total = new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 0).getDate();
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const checkIn = state.checkIn ? new Date(state.checkIn) : null;
+    const checkOut = state.checkOut ? new Date(state.checkOut) : null;
+
+    for (let i = 0; i < lead; i++) {
+      const blank = document.createElement("div");
+      daysGrid.appendChild(blank);
+    }
+    for (let day = 1; day <= total; day++) {
+      const d = new Date(viewDate.getFullYear(), viewDate.getMonth(), day);
+      const past = d < today;
+      const isIn = checkIn && d.getTime() === checkIn.getTime();
+      const isOut = checkOut && d.getTime() === checkOut.getTime();
+      const inRange = checkIn && checkOut && d > checkIn && d < checkOut;
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.textContent = String(day);
+      btn.disabled = !!past;
+      btn.style.font = "inherit";
+      btn.style.fontSize = "13px";
+      btn.style.height = "38px";
+      btn.style.padding = "0";
+      btn.style.border = "1px solid " + (isIn || isOut ? "var(--color-accent)" : "var(--color-divider)");
+      btn.style.background = isIn || isOut ? "var(--color-accent)" : inRange ? "var(--color-accent-200)" : "transparent";
+      btn.style.color = isIn || isOut ? "var(--color-bg)" : past ? "var(--color-neutral-400)" : "var(--color-text)";
+      btn.style.cursor = past ? "not-allowed" : "pointer";
+      if (!past) {
+        btn.addEventListener("click", () => pickDay(d));
+      }
+      daysGrid.appendChild(btn);
+    }
+  }
+
+  function pickDay(d: Date) {
+    const checkIn = state.checkIn ? new Date(state.checkIn) : null;
+    if (state.picking === "out" && checkIn && d > checkIn) {
+      state.checkOut = dateOnly(d);
+      state.picking = null;
+    } else {
+      state.checkIn = dateOnly(d);
+      state.checkOut = null;
+      state.picking = "out";
+    }
+    render();
+  }
+
+  checkinBtn.addEventListener("click", () => { state.picking = state.picking === "in" ? null : "in"; render(); });
+  checkoutBtn.addEventListener("click", () => { state.picking = state.picking === "out" ? null : "out"; render(); });
+  el<HTMLButtonElement>("bw-guest-inc").addEventListener("click", () => { state.guests = Math.min(6, state.guests + 1); render(); });
+  el<HTMLButtonElement>("bw-guest-dec").addEventListener("click", () => { state.guests = Math.max(1, state.guests - 1); render(); });
+  el<HTMLButtonElement>("bw-prev").addEventListener("click", () => { viewDate = new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, 1); render(); });
+  el<HTMLButtonElement>("bw-next").addEventListener("click", () => { viewDate = new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 1); render(); });
+  el<HTMLButtonElement>("bw-clear").addEventListener("click", () => { state.checkIn = null; state.checkOut = null; state.picking = "in"; render(); });
+
+  render();
+</script>

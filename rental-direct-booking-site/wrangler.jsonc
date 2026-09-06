@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "rental-direct-booking-site",
+  "compatibility_date": "2026-08-01",
+  "main": "src/worker.ts",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS"
+  }
+}

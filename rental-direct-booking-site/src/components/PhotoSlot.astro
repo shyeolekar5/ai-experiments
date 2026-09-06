@@ -1,0 +1,20 @@
+---
+// Renders a real <img> once a `src` is supplied (via CMS/data), otherwise a
+// dashed placeholder naming the shot still needed. Replaces the prototype's
+// <image-slot> web component — no client JS needed in production.
+interface Props {
+  src?: string;
+  alt: string;
+  style?: string;
+  class?: string;
+  grayscale?: boolean;
+  loading?: "lazy" | "eager";
+}
+const { src, alt, style = "", class: className = "", grayscale = true, loading = "lazy" } = Astro.props;
+---
+<div class={`photo-slot ${grayscale ? "grayscale" : ""} ${className}`} style={style}>
+  {src
+    ? <img src={src} alt={alt} loading={loading} />
+    : <div class="photo-slot-label">Photo needed:<br />{alt}</div>
+  }
+</div>
