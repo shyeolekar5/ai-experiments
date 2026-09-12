@@ -2,6 +2,8 @@
 // before the question ever reaches Gemini. Deterministic on purpose — a
 // rule can't be argued out of its answer the way a model sometimes can.
 
+import { LINKEDIN_URL } from "./constants";
+
 const BLOCKED_PATTERNS: RegExp[] = [
   // Jailbreak / instruction-override attempts
   /ignore (all|previous|prior|the above)?\s*instructions?/i,
@@ -41,4 +43,4 @@ export function isBlocked(question: string): boolean {
 }
 
 export const BLOCKED_RESPONSE =
-  "That's not something I can answer here — for anything like that, reach out to Shraddha directly at shraddha.goyani@gmail.com.";
+  `That's not something I can answer here — <a href="${LINKEDIN_URL}" target="_blank" rel="noopener">connect with Shraddha on LinkedIn</a> instead.`;
