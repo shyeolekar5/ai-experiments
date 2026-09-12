@@ -212,13 +212,14 @@ export async function handleSearch(request: Request, env: Env): Promise<Response
   try {
     parsed = JSON.parse(rawText);
   } catch {
-    console.error(
-      "Failed to parse Gemini response as JSON. finishReason:",
-      geminiData.candidates?.[0]?.finishReason,
-      "rawText:",
-      rawText
-    );
-    return Response.json({ error: "Got an unreadable response. Please try again." }, { status: 502 });
+    const finishReason = geminiData.candidates?.[0]?.finishReason;
+    console.error("Failed to parse Gemini response as JSON. finishReason:", finishReason, "rawText:", rawText);
+
+    const message =
+      finishReason === "MAX_TOKENS"
+        ? "That question was too broad to answer briefly. Try asking about one specific thing — a single project, skill, or role — instead of everything at once."
+        : "Something went wrong reading that answer. Please try rephrasing the question.";
+    return Response.json({ error: message }, { status: 502 });
   }
 
   // Only keep citations that actually match a known source label/url —
