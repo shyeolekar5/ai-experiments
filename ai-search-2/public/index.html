@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ask me anything — Shraddha Yeolekar</title>
+<meta name="description" content="Ask an AI grounded in Shraddha Yeolekar's real resume and GitHub projects — not general knowledge." />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" />
+<style>
+  :root {
+    --bg: #f6f5f3;
+    --panel: #ffffff;
+    --ink: #1c1b19;
+    --muted: #6b6a66;
+    --line: #dedcd6;
+    --accent: #b5461c;
+    --accent-bg: #fdeee7;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 64px 20px 80px;
+  }
+  h1 {
+    font-size: clamp(28px, 4vw, 36px);
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+  .sub {
+    color: var(--muted);
+    margin: 0 0 32px;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .disclaimer {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11.5px;
+    color: var(--muted);
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 28px;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .chip {
+    font-size: 13px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 7px 14px;
+    cursor: pointer;
+    color: var(--ink);
+  }
+  .chip:hover { border-color: var(--accent); color: var(--accent); }
+  form { display: flex; gap: 8px; margin-bottom: 8px; }
+  input[type="text"] {
+    flex: 1;
+    padding: 12px 14px;
+    font-size: 15px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+    color: var(--ink);
+    font-family: inherit;
+  }
+  input[type="text"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  button.ask {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0 20px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  button.ask:disabled { opacity: 0.5; cursor: not-allowed; }
+  .limit-note { font-size: 12px; color: var(--muted); margin: 0 0 24px; }
+  #cf-turnstile { margin-bottom: 16px; }
+  #answer {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 20px;
+    display: none;
+    line-height: 1.6;
+  }
+  #answer.error { border-color: var(--accent); background: var(--accent-bg); }
+  #answer .sources {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11.5px;
+  }
+  #answer .sources a {
+    color: var(--accent);
+    text-decoration: none;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 4px 9px;
+  }
+  #answer .sources a:hover { border-color: var(--accent); }
+  #loading { display: none; color: var(--muted); font-size: 14px; margin-bottom: 8px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Ask me anything.</h1>
+  <p class="sub">This is an AI grounded only in my real resume and GitHub projects — not general knowledge, and it'll tell you when it doesn't know something rather than guess.</p>
+  <p class="disclaimer">AI-generated, based on my public portfolio. For anything that matters, reach out directly at shraddha.goyani@gmail.com.</p>
+
+  <div class="chips">
+    <button class="chip" type="button">What has she built with AI?</button>
+    <button class="chip" type="button">What's her experience at OANDA?</button>
+    <button class="chip" type="button">What does the RAG evaluation project do?</button>
+    <button class="chip" type="button">What's her educational background?</button>
+  </div>
+
+  <form id="ask-form">
+    <input type="text" id="question" maxlength="300" placeholder="Type a question…" autocomplete="off" />
+    <button class="ask" type="submit" id="ask-btn">Ask</button>
+  </form>
+  <p class="limit-note">Limited to 5 questions per visitor per day.</p>
+
+  <div id="cf-turnstile" class="cf-turnstile" data-sitekey="PUBLIC_TURNSTILE_SITE_KEY_PLACEHOLDER"></div>
+
+  <div id="loading">Thinking…</div>
+  <div id="answer"></div>
+</main>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script>
+  const form = document.getElementById("ask-form");
+  const input = document.getElementById("question");
+  const askBtn = document.getElementById("ask-btn");
+  const answerEl = document.getElementById("answer");
+  const loadingEl = document.getElementById("loading");
+  const chips = document.querySelectorAll(".chip");
+
+  chips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      input.value = chip.textContent;
+      form.requestSubmit();
+    });
+  });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const question = input.value.trim();
+    if (!question) return;
+
+    const tokenField = document.querySelector('[name="cf-turnstile-response"]');
+    const turnstileToken = tokenField ? tokenField.value : "";
+
+    askBtn.disabled = true;
+    loadingEl.style.display = "block";
+    answerEl.style.display = "none";
+    answerEl.classList.remove("error");
+
+    try {
+      const res = await fetch("/api/search", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question, "cf-turnstile-response": turnstileToken }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Something went wrong.");
+      }
+
+      let html = `<p>${data.answer}</p>`;
+      if (data.citations && data.citations.length) {
+        html += '<div class="sources">';
+        for (const c of data.citations) {
+          html += `<a href="${c.url}" target="_blank" rel="noopener">${c.label}</a>`;
+        }
+        html += "</div>";
+      }
+      answerEl.innerHTML = html;
+      answerEl.style.display = "block";
+    } catch (err) {
+      answerEl.textContent = err instanceof Error ? err.message : "Something went wrong.";
+      answerEl.classList.add("error");
+      answerEl.style.display = "block";
+    } finally {
+      askBtn.disabled = false;
+      loadingEl.style.display = "none";
+      if (window.turnstile) window.turnstile.reset();
+    }
+  });
+</script>
+</body>
+</html>
