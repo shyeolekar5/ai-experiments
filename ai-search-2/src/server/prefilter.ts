@@ -34,9 +34,18 @@ const BLOCKED_PATTERNS: RegExp[] = [
   /immigration|visa status|citizenship/i,
   /\bhealth\b|\bdisab(led|ility)/i,
 
-  // Fabricated scoring — no source has a "match %"; any number here would
-  // be invented on the spot, not a real fact.
-  /match\s*%|match(ing)?\s*(percentage|score)|how good (a |of a )?fit|\brate her fit\b|\bscore (her|this)\b/i,
+  // Fabricated scoring or an unauthorized hiring verdict — no source has a
+  // "match %", and a flat yes/no "good fit for this role" judgment against
+  // a pasted job description is just as invented, even without a number
+  // attached. Catches "match % / score", "good match/fit for this role",
+  // "is she qualified for", "should I hire her", regardless of how long
+  // the accompanying job description text is.
+  /match\s*%|match(ing)?\s*(percentage|score)|\brate her fit\b|\bscore (her|this)\b/i,
+  /\b(match|fit)\b[^.?!]{0,60}\b(this|the)\s*(role|job|position)\b/i,
+  /\bis she (a |be a )?(good|strong|great|bad|weak|poor|right)?\s*(match|fit|hire)\b/i,
+  /\bshould (i|we|you) hire her\b/i,
+  /\bis she qualified for\b/i,
+  /\bwould she be (a )?(good|great|strong)?\s*(fit|match|hire)\b/i,
 
   // Opinions about named third parties
   /(opinion|think) (of|about) (her|his|their) (boss|manager|employer|colleague|coworker|company)/i,
