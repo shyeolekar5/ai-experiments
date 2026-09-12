@@ -13,16 +13,14 @@
   "kv_namespaces": [
     {
       "binding": "KV",
-      // TODO: fill in after running `npx wrangler kv namespace create ai-search-2-kv`
-      "id": "REPLACE_WITH_KV_NAMESPACE_ID"
+      "id": "9a5140a7b53f4945b56fbb60f40e5c1c"
     }
   ],
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "ai-search-2-db",
-      // TODO: fill in after running `npx wrangler d1 create ai-search-2-db`
-      "database_id": "REPLACE_WITH_D1_DATABASE_ID"
+      "database_id": "21f227c2-514b-4833-8eb6-4ab30912daf7"
     }
   ]
 }
