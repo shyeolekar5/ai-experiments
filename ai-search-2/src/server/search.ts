@@ -187,7 +187,7 @@ export async function handleSearch(request: Request, env: Env): Promise<Response
         generationConfig: {
           responseMimeType: "application/json",
           responseSchema: RESPONSE_SCHEMA,
-          maxOutputTokens: 500,
+          maxOutputTokens: 2048,
         },
       }),
     }
@@ -199,7 +199,7 @@ export async function handleSearch(request: Request, env: Env): Promise<Response
   }
 
   const geminiData = await geminiRes.json<{
-    candidates?: { content?: { parts?: { text?: string }[] } }[];
+    candidates?: { content?: { parts?: { text?: string }[] }; finishReason?: string }[];
   }>();
   const rawText = geminiData.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
 
@@ -207,6 +207,12 @@ export async function handleSearch(request: Request, env: Env): Promise<Response
   try {
     parsed = JSON.parse(rawText);
   } catch {
+    console.error(
+      "Failed to parse Gemini response as JSON. finishReason:",
+      geminiData.candidates?.[0]?.finishReason,
+      "rawText:",
+      rawText
+    );
     return Response.json({ error: "Got an unreadable response. Please try again." }, { status: 502 });
   }
 
