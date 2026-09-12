@@ -34,6 +34,10 @@ const BLOCKED_PATTERNS: RegExp[] = [
   /immigration|visa status|citizenship/i,
   /\bhealth\b|\bdisab(led|ility)/i,
 
+  // Fabricated scoring — no source has a "match %"; any number here would
+  // be invented on the spot, not a real fact.
+  /match\s*%|match(ing)?\s*(percentage|score)|how good (a |of a )?fit|\brate her fit\b|\bscore (her|this)\b/i,
+
   // Opinions about named third parties
   /(opinion|think) (of|about) (her|his|their) (boss|manager|employer|colleague|coworker|company)/i,
 ];
