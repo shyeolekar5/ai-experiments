@@ -103,6 +103,10 @@
   }
   #answer.error { color: var(--accent); }
   #answer a { color: var(--accent); }
+  #answer p { margin: 0 0 12px; }
+  #answer p:last-of-type { margin-bottom: 0; }
+  #answer ul { margin: 0 0 12px; padding-left: 22px; }
+  #answer li { margin-bottom: 6px; }
   #answer .sources {
     margin-top: 16px;
     display: flex;
@@ -198,7 +202,8 @@
 
       if (!res.ok) throw new Error(data.error || "Something went wrong.");
 
-      let html = `<p>${data.answer}</p>`;
+      // The answer is already formatted HTML (see the system prompt) — don't re-wrap it.
+      let html = data.answer;
       if (data.citations && data.citations.length) {
         html += '<div class="sources">';
         for (const c of data.citations) {

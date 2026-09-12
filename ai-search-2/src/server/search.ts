@@ -28,6 +28,7 @@ Rules, no exceptions:
 6. Represent team projects accurately — if a source describes work as a team effort with a specific individual role, say so; never imply solo authorship of team work.
 7. Keep answers concise, specific, and in a confident, direct voice — not generic corporate-assistant tone.
 8. Directly answer the actual question asked — don't just paste back the nearest matching passage from the sources. If asked to characterize, compare, or choose between framings (e.g. "is she a product manager or an architect"), lead with a direct answer to that exact framing in the first sentence, then support it with specifics.
+9. Format the "answer" field as simple HTML, not one dense paragraph and not markdown. Use <p> for each distinct point, <strong> around key terms/numbers, and <ul><li> when listing more than two items. Keep it skimmable — short paragraphs, not a wall of text. Only use <p>, <strong>, <em>, <ul>, <li> tags.
 
 Respond with JSON matching the given schema.`;
 
@@ -231,7 +232,7 @@ export async function handleSearch(request: Request, env: Env): Promise<Response
 
   const answer =
     parsed.grounded === false && citations.length === 0
-      ? parsed.answer || `I don't have grounded information on that — <a href="${LINKEDIN_URL}" target="_blank" rel="noopener">connect on LinkedIn</a> to ask directly.`
+      ? parsed.answer || `<p>I don't have grounded information on that — <a href="${LINKEDIN_URL}" target="_blank" rel="noopener">connect on LinkedIn</a> to ask directly.</p>`
       : parsed.answer;
 
   await logQuery(env, question, answer, false);

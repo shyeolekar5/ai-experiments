@@ -43,4 +43,4 @@ export function isBlocked(question: string): boolean {
 }
 
 export const BLOCKED_RESPONSE =
-  `That's not something I can answer here — <a href="${LINKEDIN_URL}" target="_blank" rel="noopener">connect with Shraddha on LinkedIn</a> instead.`;
+  `<p>That's not something I can answer here — <a href="${LINKEDIN_URL}" target="_blank" rel="noopener">connect with Shraddha on LinkedIn</a> instead.</p>`;
