@@ -7,7 +7,7 @@ URL: https://github.com/shyeolekar5/ai-experiments
 
 SHRADDHA YEOLEKAR
 Forward Deployed Product Manager — AI Deployment & Solutions Strategy
-Toronto, ON • shraddha.goyani@gmail.com • linkedin.com/in/shraddha-yeolekar • github.com/shyeolekar5
+linkedin.com/in/shraddha-yeolekar • github.com/shyeolekar5
 
 SUMMARY
 Forward-deployed AI Product Manager who embeds with engineering, compliance, and regional stakeholders to turn live production issues into roadmap decisions, not backlog tickets. Owns the deployment lifecycle for AI systems — architecture debate, vendor evaluation, CI/CD-based release (CircleCI, Kubernetes, ArgoCD) — reading logs and dashboards directly rather than relying on status reports. Not an engineer, but technical enough to work shoulder-to-shoulder with one. Deploying AI foundation from the University of Toronto plus a Master's in Management.
