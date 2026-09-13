@@ -64,18 +64,29 @@
   .btn-secondary { border-color: var(--color-divider); color: var(--color-text); }
   .btn-secondary:hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); color: var(--color-text); }
 
-  .hero { padding: 96px 32px 72px; max-width: 900px; }
+  .hero { padding: 96px 32px 72px; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: 56px; align-items: center; }
   .hero .kicker { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 20px; }
-  .hero h1 { font-size: clamp(34px, 4.6vw, 56px); max-width: 18ch; margin-bottom: 20px; text-wrap: balance; }
-  .hero p { font-size: 18px; max-width: 56ch; color: var(--color-neutral-800); margin-bottom: 32px; }
+  .hero h1 { font-size: clamp(34px, 4.6vw, 56px); margin-bottom: 20px; text-wrap: balance; }
+  .hero p { font-size: 18px; max-width: 52ch; color: var(--color-neutral-800); margin-bottom: 32px; }
   .hero .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .photo-slot {
+    aspect-ratio: 4 / 5; background: var(--color-surface); border: 1px dashed var(--color-divider);
+    display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;
+    font-family: var(--font-mono); font-size: 12px; color: var(--color-neutral-600); letter-spacing: 0.04em;
+  }
 
   section { padding: 56px 32px; }
   .section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 32px; flex-wrap: wrap; }
   .section-head h2 { font-size: 28px; }
 
-  .about p { font-size: 17px; max-width: 62ch; color: var(--color-neutral-800); margin-bottom: 16px; }
-  .about p:last-child { margin-bottom: 0; }
+  .about-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 56px; }
+  .about-text p { font-size: 17px; max-width: 56ch; color: var(--color-neutral-800); margin-bottom: 16px; }
+  .about-text p:last-child { margin-bottom: 0; }
+  .about-highlights { border-left: 2px solid var(--color-divider); padding-left: 32px; }
+  .highlight-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 22px; }
+  .highlight-list li { display: flex; flex-direction: column; gap: 5px; }
+  .highlight-list strong { font-family: var(--font-mono); font-weight: 400; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-neutral-700); }
+  .highlight-list span { font-size: 15px; color: var(--color-text); line-height: 1.4; }
 
   .work-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 2px solid var(--color-divider); }
   .work-card { padding: 28px 24px; border-right: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider); display: flex; flex-direction: column; gap: 8px; }
@@ -84,9 +95,10 @@
   .work-card p { font-size: 13.5px; color: var(--color-neutral-700); flex: 1; }
   .work-card .link { font-size: 13px; font-weight: 600; margin-top: 4px; }
 
-  .facts-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 2px solid var(--color-divider); padding-bottom: 40px; }
-  .fact { padding: 24px 20px 0 0; border-right: 1px solid var(--color-divider); }
-  .fact:last-child { border-right: none; }
+  .facts-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 2px solid var(--color-divider); padding: 0 32px 40px; }
+  .fact { padding: 24px 20px 0 20px; border-right: 1px solid var(--color-divider); }
+  .fact:first-child { padding-left: 0; }
+  .fact:last-child { border-right: none; padding-right: 0; }
   .fact .value { font-size: 28px; font-weight: 800; font-family: var(--font-heading); }
   .fact .label { font-size: 12px; color: var(--color-neutral-700); margin-top: 8px; line-height: 1.4; }
 
@@ -97,17 +109,24 @@
 
   @media (max-width: 900px) {
     .work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .hero { grid-template-columns: 1fr; }
+    .photo-slot { aspect-ratio: 16 / 9; max-width: 420px; }
+    .about-grid { grid-template-columns: 1fr; }
+    .about-highlights { border-left: none; border-top: 2px solid var(--color-divider); padding-left: 0; padding-top: 24px; }
   }
   @media (max-width: 768px) {
-    header, section, footer, .hero { padding-left: 20px; padding-right: 20px; }
+    header, section, footer, .hero, .facts-grid { padding-left: 20px; padding-right: 20px; }
     .work-grid { grid-template-columns: 1fr; }
     .facts-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .fact:nth-child(3) { border-right: none; }
+    .fact:nth-child(4) { padding-left: 0; }
   }
   @media (max-width: 480px) {
     .facts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .fact:nth-child(3) { border-right: 1px solid var(--color-divider); }
+    .fact:nth-child(3) { border-right: 1px solid var(--color-divider); padding-left: 0; }
+    .fact:nth-child(4) { padding-left: 20px; }
     .fact:nth-child(2n) { border-right: none; }
+    .fact:nth-child(5) { padding-left: 0; }
   }
 </style>
 </head>
@@ -123,20 +142,35 @@
 </header>
 
 <div class="hero">
-  <div class="kicker">Forward Deployed Product Manager</div>
-  <h1>I take LLM systems from idea to production — and I can prove it.</h1>
-  <p>Product vision, evaluation frameworks, and the guardrails that keep AI systems reliable once they're live — plus the real, working code behind it. Ask an AI grounded in my actual resume and GitHub projects, not a summary written to impress you.</p>
-  <div class="actions">
-    <a href="https://ask.shraddhayeolekar.com" target="_blank" rel="noopener" class="btn btn-primary">Ask about my work →</a>
-    <a href="https://github.com/shyeolekar5/ai-experiments" target="_blank" rel="noopener" class="btn btn-secondary">See the code →</a>
+  <div class="hero-text">
+    <div class="kicker">Forward Deployed Product Manager</div>
+    <h1>I take LLM systems from idea to production — and I can prove it.</h1>
+    <p>Product vision, evaluation frameworks, and the guardrails that keep AI systems reliable once they're live — plus the real, working code behind it. Ask an AI grounded in my actual resume and GitHub projects, not a summary written to impress you.</p>
+    <div class="actions">
+      <a href="https://ask.shraddhayeolekar.com" target="_blank" rel="noopener" class="btn btn-primary">Ask about my work →</a>
+      <a href="https://github.com/shyeolekar5/ai-experiments" target="_blank" rel="noopener" class="btn btn-secondary">See the code →</a>
+    </div>
   </div>
+  <div class="photo-slot" id="hero-photo">Photo needed: headshot</div>
 </div>
 
 <section class="about rule-b rule-t">
-  <h6 style="color: var(--color-accent-700); margin-bottom: 20px;">What I do</h6>
-  <p>I've spent recent years taking LLM and RAG systems from initial vision to production — setting product direction, debating architecture, and building the evaluation frameworks and guardrails that keep them reliable once real users depend on them.</p>
-  <p>My background spans product, content, and customer-experience leadership, most recently as Global Manager of Digital Client Experience at OANDA, owning the AI/automation portfolio end to end — chatbots, autonomous agents, and the human-in-the-loop review systems that keep them accountable.</p>
-  <p>I apply the same rigor in my own time: open-source experiments comparing chunking strategies, evaluation frameworks, and multi-agent orchestration — real, runnable code, not slideware.</p>
+  <div class="about-grid">
+    <div class="about-text">
+      <h6 style="color: var(--color-accent-700); margin-bottom: 20px;">What I do</h6>
+      <p>I've spent recent years taking LLM and RAG systems from initial vision to production — setting product direction, debating architecture, and building the evaluation frameworks and guardrails that keep them reliable once real users depend on them.</p>
+      <p>My background spans product, content, and customer-experience leadership, most recently as Global Manager of Digital Client Experience at OANDA, owning the AI/automation portfolio end to end — chatbots, autonomous agents, and the human-in-the-loop review systems that keep them accountable.</p>
+      <p>I apply the same rigor in my own time: open-source experiments comparing chunking strategies, evaluation frameworks, and multi-agent orchestration — real, runnable code, not slideware.</p>
+    </div>
+    <div class="about-highlights">
+      <h6 style="margin-bottom: 20px;">Currently</h6>
+      <ul class="highlight-list">
+        <li><strong>Role</strong><span>Global Manager, Digital Client Experience — OANDA</span></li>
+        <li><strong>Focus</strong><span>LLM/RAG deployment, evaluation frameworks, production guardrails</span></li>
+        <li><strong>Certifications</strong><span>Deploying AI · Data Science &amp; Machine Learning — University of Toronto</span></li>
+      </ul>
+    </div>
+  </div>
 </section>
 
 <section id="work">
