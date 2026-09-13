@@ -74,6 +74,10 @@
     display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;
     font-family: var(--font-mono); font-size: 12px; color: var(--color-neutral-600); letter-spacing: 0.04em;
   }
+  .hero-photo-img {
+    width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 25%;
+    border: 2px solid var(--color-divider);
+  }
 
   section { padding: 56px 32px; }
   .section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 32px; flex-wrap: wrap; }
@@ -110,7 +114,7 @@
   @media (max-width: 900px) {
     .work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .hero { grid-template-columns: 1fr; }
-    .photo-slot { aspect-ratio: 16 / 9; max-width: 420px; }
+    .photo-slot, .hero-photo-img { aspect-ratio: 16 / 9; max-width: 420px; }
     .about-grid { grid-template-columns: 1fr; }
     .about-highlights { border-left: none; border-top: 2px solid var(--color-divider); padding-left: 0; padding-top: 24px; }
   }
@@ -151,7 +155,7 @@
       <a href="https://github.com/shyeolekar5/ai-experiments" target="_blank" rel="noopener" class="btn btn-secondary">See the code →</a>
     </div>
   </div>
-  <div class="photo-slot" id="hero-photo">Photo needed: headshot</div>
+  <img class="hero-photo-img" src="/images/headshot.jpeg" alt="Shraddha Yeolekar" />
 </div>
 
 <section class="about rule-b rule-t">
