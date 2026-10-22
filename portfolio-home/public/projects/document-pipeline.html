@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AI Document Pipeline · Shraddha Yeolekar</title>
+<meta name="description" content="AI Document Pipeline. Key decision: Don't ship it yet." />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&display=swap" />
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+
+<header class="rule-b">
+  <a class="brand-name" href="/" style="color: var(--color-text);">Shraddha Yeolekar</a>
+  <nav>
+    <a href="/projects/">Projects</a>
+    <a href="/#break-it">Ask AI</a>
+    <a class="optional" href="https://github.com/shyeolekar5/ai-experiments" target="_blank" rel="noopener">GitHub</a>
+    <a class="optional" href="https://www.linkedin.com/in/shraddha-yeolekar/" target="_blank" rel="noopener">LinkedIn</a>
+  </nav>
+</header>
+
+<div class="crumb"><a href="/projects/">← All projects</a></div>
+
+<article class="project wide detail">
+  <div>
+    <div class="num">Project 01 · Document AI</div>
+    <h1>AI Document Pipeline</h1>
+    <div class="tags"><span class="tag-chip">Evaluation</span><span class="tag-chip">RAG</span></div>
+  </div>
+  <div>
+    <p class="summary">Classifies, extracts and routes invoices, purchase orders, complaints and contracts for multiple tenants. Seven experiments chose the design, and an eval gate decides whether a configuration goes live.</p>
+    <dl>
+      <div><dt>Key decision</dt><dd class="call">Don't ship it yet.</dd></div>
+      <div><dt>Why</dt><dd>The gate needs 85% overall precision and no document type below 75%. The tuned configuration scored 82%, with complaints at 67% and contracts at 60%, so it stays pending.</dd></div>
+      <div><dt>What's next</dt><dd>The golden set has one labelled document per type, which is too small to tune against. More labelled documents come before more tuning.</dd></div>
+    </dl>
+    <div class="links">
+      <a href="https://github.com/shyeolekar5/ai-experiments/tree/main/document-management-system" target="_blank" rel="noopener">See the code →</a>
+      <a href="https://github.com/shyeolekar5/ai-experiments/blob/main/document-management-system/evals/winners.json" target="_blank" rel="noopener">See the gate result →</a>
+    </div>
+  </div>
+  <figure>
+    <div class="diagram-scroll">
+      <svg viewBox="0 0 810 290" role="img" aria-label="Pipeline architecture. A document is classified and extracted by Gemini Flash in one call. Long documents first go through section-aware chunking and per-field retrieval. Results above the confidence bar are approved automatically; the rest go to human review. Every configuration change must pass an eval gate before it becomes the live configuration.">
+        <defs>
+          <marker id="p1a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker>
+          <marker id="p1r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ec3013"/></marker>
+        </defs>
+        <g font-size="12" fill="currentColor">
+          <!-- main row -->
+          <rect x="10" y="30" width="90" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="55" y="50" text-anchor="middle">Upload</text><text x="55" y="66" text-anchor="middle">document</text>
+          <line x1="100" y1="53" x2="122" y2="53" stroke="currentColor" stroke-width="1.5" marker-end="url(#p1a)"/>
+          <rect x="124" y="30" width="96" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="172" y="50" text-anchor="middle">Long</text><text x="172" y="66" text-anchor="middle">document?</text>
+          <line x1="220" y1="53" x2="418" y2="53" stroke="currentColor" stroke-width="1.5" marker-end="url(#p1a)"/>
+          <text x="320" y="45" text-anchor="middle" font-size="11">no: whole document</text>
+          <rect x="420" y="30" width="150" height="46" fill="currentColor" opacity="0.12"/>
+          <rect x="420" y="30" width="150" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="495" y="50" text-anchor="middle" font-weight="700">Gemini Flash</text><text x="495" y="66" text-anchor="middle" font-size="11">classify + extract</text>
+          <line x1="570" y1="53" x2="598" y2="53" stroke="currentColor" stroke-width="1.5" marker-end="url(#p1a)"/>
+          <rect x="600" y="30" width="84" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="642" y="50" text-anchor="middle" font-size="11">confidence</text><text x="642" y="66" text-anchor="middle" font-size="11">≥ bar?</text>
+          <line x1="684" y1="44" x2="710" y2="22" stroke="currentColor" stroke-width="1.5" marker-end="url(#p1a)"/>
+          <line x1="684" y1="62" x2="710" y2="86" stroke="currentColor" stroke-width="1.5" marker-end="url(#p1a)"/>
+          <rect x="712" y="6" width="92" height="30" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="758" y="26" text-anchor="middle" font-size="11">auto-approve</text>
+          <rect x="712" y="72" width="92" height="30" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="758" y="92" text-anchor="middle" font-size="11">human review</text>
+
+          <!-- RAG lane -->
+          <text x="10" y="147" font-size="11" opacity="0.7">long docs</text>
+          <line x1="172" y1="76" x2="172" y2="118" stroke="currentColor" stroke-width="1.5" marker-end="url(#p1a)"/>
+          <text x="180" y="102" font-size="11">yes</text>
+          <rect x="124" y="120" width="130" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="189" y="140" text-anchor="middle">Section-aware</text><text x="189" y="156" text-anchor="middle">chunks</text>
+          <line x1="254" y1="143" x2="272" y2="143" stroke="currentColor" stroke-width="1.5" marker-end="url(#p1a)"/>
+          <rect x="274" y="120" width="130" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="339" y="140" text-anchor="middle">Query per field</text><text x="339" y="156" text-anchor="middle" font-size="11">top 3 each</text>
+          <path d="M404 143 H470 V80" fill="none" stroke="currentColor" stroke-width="1.5" marker-end="url(#p1a)"/>
+          <text x="464" y="112" text-anchor="end" font-size="11">per-field context</text>
+
+          <!-- Release lane -->
+          <text x="10" y="237" font-size="11" opacity="0.7">every change</text>
+          <rect x="124" y="210" width="130" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="189" y="230" text-anchor="middle">Config</text><text x="189" y="246" text-anchor="middle">change</text>
+          <line x1="254" y1="233" x2="272" y2="233" stroke="currentColor" stroke-width="1.5" marker-end="url(#p1a)"/>
+          <rect x="274" y="210" width="130" height="46" fill="none" stroke="#ec3013" stroke-width="2.5"/>
+          <text x="339" y="230" text-anchor="middle" font-weight="700">Eval gate</text><text x="339" y="246" text-anchor="middle" font-size="11">golden set</text>
+          <line x1="404" y1="233" x2="418" y2="233" stroke="currentColor" stroke-width="1.5" marker-end="url(#p1a)"/>
+          <text x="411" y="204" text-anchor="middle" font-size="10">pass</text>
+          <rect x="420" y="210" width="150" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="495" y="230" text-anchor="middle">Live config</text><text x="495" y="246" text-anchor="middle" font-size="11">prompt · chunks · K</text>
+          <line x1="545" y1="210" x2="545" y2="80" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#p1a)"/>
+          <text x="553" y="150" font-size="11">sets</text>
+          <line x1="339" y1="256" x2="339" y2="272" stroke="#ec3013" stroke-width="2" marker-end="url(#p1r)"/>
+          <text x="350" y="282" font-size="11" font-weight="700" fill="#ae1800">fail → stays pending</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption>How a document moves through the pipeline (top two lanes) and how a change reaches production (bottom lane). Nothing in the live configuration changes without passing the gate.</figcaption>
+  </figure>
+
+  <div class="figure-row">
+    <div>
+      <div class="table-title">How the design was chosen · 7 experiments</div>
+      <table class="experiments">
+        <thead><tr><th>Choice</th><th>Winner</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Model</td><td>Gemini Flash</td><td>Same precision as GPT-4o at 25–130× lower cost. GPT-4o's confidence was always 0.5, which breaks routing.</td></tr>
+          <tr><td>Calls</td><td>One combined call</td><td>4× cheaper on long documents, same quality.</td></tr>
+          <tr><td>Prompt</td><td>Four-layer prompt</td><td>A minimal prompt missed "paid plan not activated" in a complaint.</td></tr>
+          <tr><td>Retrieval</td><td>One query per field</td><td>Contract ID is on page 1 and governing law on page 28. One query can't find both.</td></tr>
+          <tr><td>Chunking</td><td>Section-aware</td><td>The 4-line governing-law clause got buried in a 500-word window.</td></tr>
+          <tr><td>Top K</td><td>3</td><td>K=1 has no backup when the top chunk is wrong. K=5 adds noise.</td></tr>
+          <tr><td>Query wording</td><td>Include the field's description</td><td>Similarity rose from 0.57 to 0.77, the biggest gain of all seven.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <figure>
+      <div class="diagram-scroll">
+        <svg viewBox="0 0 560 270" role="img" aria-label="Eval gate result. Invoice and purchase order precision are 100 percent. Complaint is 67 percent and contract is 60 percent, both below the 75 percent per-type floor. Overall precision is 82 percent, below the 85 percent ship bar. The configuration is held.">
+          <g font-size="12" fill="currentColor">
+            <line x1="40" y1="220" x2="550" y2="220" stroke="currentColor" stroke-width="1.5"/>
+            <text x="32" y="224" text-anchor="end" font-size="10" opacity="0.7">0%</text>
+            <text x="32" y="44" text-anchor="end" font-size="10" opacity="0.7">100%</text>
+            <line x1="36" y1="40" x2="40" y2="40" stroke="currentColor"/>
+            <rect x="60" y="40" width="64" height="180" fill="currentColor" opacity="0.35"/>
+            <text x="92" y="34" text-anchor="middle" font-size="11">100%</text>
+            <text x="92" y="238" text-anchor="middle" font-size="11">Invoice</text>
+            <rect x="150" y="40" width="64" height="180" fill="currentColor" opacity="0.35"/>
+            <text x="182" y="34" text-anchor="middle" font-size="11">100%</text>
+            <text x="182" y="238" text-anchor="middle" font-size="11">PO</text>
+            <rect x="240" y="100" width="64" height="120" fill="#ec3013"/>
+            <text x="272" y="124" text-anchor="middle" font-size="12" font-weight="700" fill="#f3f2f2">67%</text>
+            <text x="272" y="238" text-anchor="middle" font-size="11">Complaint</text>
+            <rect x="330" y="112" width="64" height="108" fill="#ec3013"/>
+            <text x="362" y="136" text-anchor="middle" font-size="12" font-weight="700" fill="#f3f2f2">60%</text>
+            <text x="362" y="238" text-anchor="middle" font-size="11">Contract</text>
+            <line x1="50" y1="85" x2="410" y2="85" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5 4"/>
+            <text x="410" y="79" text-anchor="end" font-size="10">floor 75%</text>
+            <line x1="430" y1="40" x2="430" y2="220" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+            <rect x="460" y="72" width="64" height="148" fill="none" stroke="#ec3013" stroke-width="2.5"/>
+            <text x="492" y="238" text-anchor="middle" font-size="11" font-weight="700">Overall</text>
+            <text x="492" y="140" text-anchor="middle" font-size="11" font-weight="700" fill="#ae1800">82%</text>
+            <line x1="448" y1="67" x2="550" y2="67" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5 4"/>
+            <text x="448" y="60" font-size="10">ship bar 85%</text>
+            <text x="492" y="262" text-anchor="middle" font-size="11" font-weight="700" fill="#ae1800">HELD</text>
+          </g>
+        </svg>
+      </div>
+      <figcaption>The gate judges the whole system, not its best cases. With one document per type, read these as a method, not a benchmark.</figcaption>
+    </figure>
+  </div>
+
+</article>
+
+<nav class="pager" aria-label="More projects">
+  
+  <a class="next" href="/projects/ask-ai"><span>Next →</span>Ask AI</a>
+</nav>
+
+<footer>
+  <div>
+    <div class="brand-name">Shraddha Yeolekar</div>
+    <div class="tagline">AI agent deployment · Customer experience · Regulated industries</div>
+  </div>
+  <div class="links">
+    <a href="https://ask.shraddhayeolekar.com" target="_blank" rel="noopener">Ask AI</a>
+    <a href="https://github.com/shyeolekar5/ai-experiments" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://www.linkedin.com/in/shraddha-yeolekar/" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Guardrail &amp; Judge Evaluation · Shraddha Yeolekar</title>
+<meta name="description" content="Guardrail &amp; Judge Evaluation. Key decision: Test the cases that break support bots, not just the happy path." />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&display=swap" />
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+
+<header class="rule-b">
+  <a class="brand-name" href="/" style="color: var(--color-text);">Shraddha Yeolekar</a>
+  <nav>
+    <a href="/projects/">Projects</a>
+    <a href="/#break-it">Ask AI</a>
+    <a class="optional" href="https://github.com/shyeolekar5/ai-experiments" target="_blank" rel="noopener">GitHub</a>
+    <a class="optional" href="https://www.linkedin.com/in/shraddha-yeolekar/" target="_blank" rel="noopener">LinkedIn</a>
+  </nav>
+</header>
+
+<div class="crumb"><a href="/projects/">← All projects</a></div>
+
+<article class="project wide detail">
+  <div>
+    <div class="num">Project 04 · Evaluation</div>
+    <h1>Guardrail &amp; Judge Evaluation</h1>
+    <div class="tags"><span class="tag-chip">Evaluation</span><span class="tag-chip">Guardrails</span></div>
+  </div>
+  <div>
+    <p class="summary">An A/B test of two support-bot prompts, a loose "the customer is always right" prompt against a strict, policy-bound one, scored automatically by an LLM judge.</p>
+    <dl>
+      <div><dt>Key decision</dt><dd class="call">Test the cases that break support bots, not just the happy path.</dd></div>
+      <div><dt>Why</dt><dd>Two-thirds of the test set is adversarial: a loyal customer pushing for an exception to a final-sale rule, and a real question wrapped in off-topic chatter. A judge running at temperature 0 gives a pass or fail on faithfulness and relevance, so the comparison is a number, not an impression. I cross-checked the results with DeepEval's standard metrics.</dd></div>
+      <div><dt>Gave up</dt><dd>Realism. The cases come from templates, which is fine for comparing two prompts but isn't proof of quality with real customers.</dd></div>
+    </dl>
+    <div class="links"><a href="https://github.com/shyeolekar5/ai-experiments/tree/main/ai-evals-2" target="_blank" rel="noopener">See the code →</a></div>
+  </div>
+  <figure>
+    <div class="diagram-scroll">
+      <svg viewBox="0 0 600 220" role="img" aria-label="Twelve test cases, four happy path, four rule-breaker and four distraction, are each answered by a loose prompt and a strict prompt. An LLM judge at temperature zero scores every answer on faithfulness and relevance; a pass requires both.">
+        <defs>
+          <marker id="p4a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker>
+        </defs>
+        <g font-size="12" fill="currentColor">
+          <rect x="10" y="10" width="170" height="40" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="95" y="35" text-anchor="middle">Happy path ×4</text>
+          <rect x="10" y="60" width="170" height="40" fill="none" stroke="#ec3013" stroke-width="2.5"/>
+          <text x="95" y="85" text-anchor="middle" font-weight="700">Rule-breaker ×4</text>
+          <rect x="10" y="110" width="170" height="40" fill="none" stroke="#ec3013" stroke-width="2.5"/>
+          <text x="95" y="135" text-anchor="middle" font-weight="700">Distraction ×4</text>
+          <text x="10" y="172" font-size="11" fill="#ae1800" font-weight="700">8 of 12 cases are adversarial</text>
+
+          <path d="M186 10 h8 V150 h-8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="194" y1="80" x2="238" y2="45" stroke="currentColor" stroke-width="1.5" marker-end="url(#p4a)"/>
+          <line x1="194" y1="80" x2="238" y2="113" stroke="currentColor" stroke-width="1.5" marker-end="url(#p4a)"/>
+
+          <rect x="240" y="20" width="130" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="305" y="40" text-anchor="middle" font-weight="700">Prompt A</text><text x="305" y="56" text-anchor="middle" font-size="11">loose</text>
+          <rect x="240" y="90" width="130" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="305" y="110" text-anchor="middle" font-weight="700">Prompt B</text><text x="305" y="126" text-anchor="middle" font-size="11">strict</text>
+
+          <line x1="370" y1="43" x2="418" y2="70" stroke="currentColor" stroke-width="1.5" marker-end="url(#p4a)"/>
+          <line x1="370" y1="113" x2="418" y2="88" stroke="currentColor" stroke-width="1.5" marker-end="url(#p4a)"/>
+          <text x="394" y="40" font-size="10" opacity="0.7">answer</text>
+
+          <rect x="420" y="55" width="170" height="46" fill="currentColor" opacity="0.12"/>
+          <rect x="420" y="55" width="170" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="505" y="75" text-anchor="middle" font-weight="700">LLM judge</text><text x="505" y="91" text-anchor="middle" font-size="11">temp 0 · JSON verdict</text>
+          <line x1="505" y1="101" x2="505" y2="132" stroke="currentColor" stroke-width="1.5" marker-end="url(#p4a)"/>
+          <rect x="420" y="134" width="170" height="74" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="432" y="154" font-size="11">faithfulness  1 / 0</text>
+          <text x="432" y="172" font-size="11">relevance     1 / 0</text>
+          <text x="432" y="196" font-size="11" font-weight="700">pass = both</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption>Both prompts see the same twelve cases, and one judge scores every answer, so the only thing that changes is the prompt.</figcaption>
+  </figure>
+
+</article>
+
+<nav class="pager" aria-label="More projects">
+  <a href="/projects/support-orchestrator"><span>← Previous</span>Multi-Agent Support Orchestrator</a>
+  <a class="next" href="/projects/rag-eval-framework"><span>Next →</span>RAG Evaluation Framework</a>
+</nav>
+
+<footer>
+  <div>
+    <div class="brand-name">Shraddha Yeolekar</div>
+    <div class="tagline">AI agent deployment · Customer experience · Regulated industries</div>
+  </div>
+  <div class="links">
+    <a href="https://ask.shraddhayeolekar.com" target="_blank" rel="noopener">Ask AI</a>
+    <a href="https://github.com/shyeolekar5/ai-experiments" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://www.linkedin.com/in/shraddha-yeolekar/" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+</footer>
+
+</body>
+</html>

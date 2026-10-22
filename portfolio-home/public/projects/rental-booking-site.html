@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Rental Direct-Booking Site · Shraddha Yeolekar</title>
+<meta name="description" content="Rental Direct-Booking Site. Key decision: Hold back search indexing until the real domain is live." />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&display=swap" />
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+
+<header class="rule-b">
+  <a class="brand-name" href="/" style="color: var(--color-text);">Shraddha Yeolekar</a>
+  <nav>
+    <a href="/projects/">Projects</a>
+    <a href="/#break-it">Ask AI</a>
+    <a class="optional" href="https://github.com/shyeolekar5/ai-experiments" target="_blank" rel="noopener">GitHub</a>
+    <a class="optional" href="https://www.linkedin.com/in/shraddha-yeolekar/" target="_blank" rel="noopener">LinkedIn</a>
+  </nav>
+</header>
+
+<div class="crumb"><a href="/projects/">← All projects</a></div>
+
+<article class="project wide detail">
+  <div>
+    <div class="num">Project 06 · Client work, shipped</div>
+    <h1>Rental Direct-Booking Site</h1>
+    <div class="tags"><span class="tag-chip">Client work</span></div>
+  </div>
+  <div>
+    <p class="summary">A production booking-enquiry site for a short-term rental owner, built to win direct bookings without platform commission. I took it from a static design handoff to a live site with a spam-protected enquiry pipeline. The client's name is withheld at their request.</p>
+    <dl>
+      <div><dt>Key decision</dt><dd class="call">Hold back search indexing until the real domain is live.</dd></div>
+      <div><dt>Why</dt><dd>During client review the site lived on a placeholder subdomain. If search engines had indexed it, the future production site would have competed with its own duplicate. Zero-risk SEO went in immediately, and indexing waited for the domain switch.</dd></div>
+      <div><dt>Also</dt><dd>I sized the infrastructure to the job: four static pages and one serverless function, with no database or separate CI service.</dd></div>
+    </dl>
+    <div class="links"><a href="https://github.com/shyeolekar5/ai-experiments/tree/main/rental-direct-booking-site" target="_blank" rel="noopener">See the code →</a></div>
+  </div>
+  <figure>
+    <div class="diagram-scroll">
+      <svg viewBox="0 0 600 210" role="img" aria-label="SEO sequencing across two phases. On the placeholder subdomain during client review, structured data and page metadata are live, while the site is marked noindex and the sitemap and canonical URLs are held back. On the production domain, the sitemap, canonical URLs and indexing are switched on.">
+        <defs>
+          <marker id="p6a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker>
+        </defs>
+        <g font-size="12" fill="currentColor">
+          <rect x="10" y="40" width="250" height="160" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="22" y="30" font-weight="700">Placeholder subdomain</text>
+          <text x="190" y="30" font-size="10" opacity="0.7">client review</text>
+          <text x="26" y="70" font-size="11">✓ structured data</text>
+          <text x="26" y="92" font-size="11">✓ page metadata</text>
+          <text x="26" y="124" font-size="11" opacity="0.5">– sitemap (held)</text>
+          <text x="26" y="146" font-size="11" opacity="0.5">– canonical URLs (held)</text>
+          <rect x="20" y="162" width="230" height="28" fill="#ec3013" opacity="0.14"/>
+          <text x="30" y="181" font-size="11" font-weight="700" fill="#ae1800">noindex: invisible to search</text>
+
+          <line x1="264" y1="120" x2="330" y2="120" stroke="currentColor" stroke-width="1.5" marker-end="url(#p6a)"/>
+          <text x="297" y="110" text-anchor="middle" font-size="10">domain</text>
+          <text x="297" y="138" text-anchor="middle" font-size="10">switch</text>
+
+          <rect x="340" y="40" width="250" height="160" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="352" y="30" font-weight="700">Production domain</text>
+          <text x="356" y="70" font-size="11">✓ structured data</text>
+          <text x="356" y="92" font-size="11">✓ page metadata</text>
+          <text x="356" y="124" font-size="11">✓ sitemap</text>
+          <text x="356" y="146" font-size="11">✓ canonical URLs</text>
+          <text x="356" y="181" font-size="11" font-weight="700">✓ indexing on</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption>Each SEO step waited for its moment. Safe steps went live on day one, and anything that would let search engines index the temporary address waited for the real domain.</figcaption>
+  </figure>
+<div class="arch">
+  <h2>How it's built</h2>
+  <p class="section-intro">Four static pages and one serverless function, hosted, secured and deployed on Cloudflare. Email goes out through Resend.</p>
+  <figure>
+    <div class="diagram-scroll">
+      <svg viewBox="0 0 900 350" role="img" aria-label="Rental site architecture. The guest's browser carries booking-widget dates into a prefilled enquiry form. A Cloudflare Worker routes page requests to static pages built by Astro and sends form posts to the enquire handler. The handler first verifies a Turnstile spam token, then sends the enquiry through Resend to the owner's inbox, with reply-to set to the guest. On every git push, Workers Builds runs the Astro build and deploys the Worker; secrets are attached at runtime.">
+        <defs>
+          <marker id="ra" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker>
+          <marker id="rr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ec3013"/></marker>
+        </defs>
+        <g font-size="12" fill="currentColor">
+          <rect x="180" y="14" width="440" height="250" fill="none" stroke="#ec3013" stroke-width="1.5" stroke-dasharray="6 4"/>
+          <text x="192" y="34" font-weight="700" fill="#ae1800">Cloudflare</text>
+          <text x="660" y="34" font-size="11" opacity="0.7">outside Cloudflare</text>
+
+          <!-- browser -->
+          <rect x="10" y="90" width="140" height="96" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="80" y="112" text-anchor="middle" font-weight="700">Guest's browser</text>
+          <text x="80" y="134" text-anchor="middle" font-size="11">booking widget</text>
+          <text x="80" y="150" text-anchor="middle" font-size="11">↓ dates carried over</text>
+          <text x="80" y="166" text-anchor="middle" font-size="11">enquiry form</text>
+
+          <!-- worker -->
+          <rect x="200" y="110" width="120" height="56" fill="currentColor" opacity="0.12"/>
+          <rect x="200" y="110" width="120" height="56" fill="none" stroke="currentColor" stroke-width="2"/>
+          <text x="260" y="134" text-anchor="middle" font-weight="700">Worker</text>
+          <text x="260" y="152" text-anchor="middle" font-size="11">routes requests</text>
+
+          <rect x="380" y="40" width="200" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="480" y="60" text-anchor="middle">Static pages</text><text x="480" y="76" text-anchor="middle" font-size="11">built by Astro</text>
+          <rect x="380" y="113" width="200" height="50" fill="none" stroke="#ec3013" stroke-width="2.5"/>
+          <text x="480" y="134" text-anchor="middle" font-weight="700">/api/enquire</text><text x="480" y="152" text-anchor="middle" font-size="11">validate + compose email</text>
+          <rect x="380" y="200" width="200" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="480" y="220" text-anchor="middle">Turnstile</text><text x="480" y="236" text-anchor="middle" font-size="11">spam check, no puzzle</text>
+
+          <!-- external -->
+          <rect x="660" y="113" width="110" height="50" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="715" y="134" text-anchor="middle" font-weight="700">Resend</text><text x="715" y="152" text-anchor="middle" font-size="11">email API</text>
+          <rect x="790" y="113" width="100" height="50" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="840" y="134" text-anchor="middle">Owner's</text><text x="840" y="152" text-anchor="middle">inbox</text>
+          <text x="840" y="182" text-anchor="middle" font-size="11">reply goes</text>
+          <text x="840" y="196" text-anchor="middle" font-size="11">to the guest</text>
+
+          <g stroke="currentColor" stroke-width="1.5" fill="none">
+            <line x1="150" y1="138" x2="198" y2="138" marker-end="url(#ra)"/>
+            <line x1="320" y1="122" x2="378" y2="68" marker-end="url(#ra)"/>
+            <line x1="770" y1="138" x2="788" y2="138" marker-end="url(#ra)"/>
+          </g>
+          <g stroke="#ec3013" stroke-width="2" fill="none">
+            <line x1="320" y1="138" x2="378" y2="138" marker-end="url(#rr)"/>
+            <line x1="480" y1="163" x2="480" y2="198" marker-end="url(#rr)"/>
+            <line x1="580" y1="138" x2="658" y2="138" marker-end="url(#rr)"/>
+          </g>
+          <text x="350" y="80" text-anchor="end" font-size="11">pages</text>
+          <text x="349" y="130" text-anchor="middle" font-size="11">form</text>
+          <text x="488" y="186" font-size="11" fill="#ae1800">1. verify</text>
+          <text x="616" y="108" text-anchor="end" font-size="11" fill="#ae1800">2. send</text>
+
+          <!-- deploy lane -->
+          <text x="10" y="317" font-size="11" opacity="0.7">on git push</text>
+          <rect x="200" y="290" width="120" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="260" y="310" text-anchor="middle">GitHub</text><text x="260" y="326" text-anchor="middle" font-size="11">private repo</text>
+          <rect x="380" y="290" width="200" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="480" y="310" text-anchor="middle">Workers Builds</text><text x="480" y="326" text-anchor="middle" font-size="11">astro build → deploy</text>
+          <rect x="660" y="290" width="230" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="775" y="310" text-anchor="middle">Secrets</text><text x="775" y="326" text-anchor="middle" font-size="11">Resend key · inbox · Turnstile key</text>
+          <g stroke="currentColor" stroke-width="1.5" fill="none">
+            <line x1="320" y1="313" x2="378" y2="313" marker-end="url(#ra)"/>
+            <line x1="480" y1="290" x2="480" y2="266" marker-end="url(#ra)"/>
+            <line x1="700" y1="290" x2="622" y2="250" stroke-dasharray="4 3" marker-end="url(#ra)"/>
+          </g>
+          <text x="488" y="282" font-size="11">deploys</text>
+          <text x="710" y="276" font-size="11">attached, never in code</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption>The highlighted path is an enquiry: spam check first, then email. The guest only sees "Enquiry sent" after Resend accepts the email, and if it fails they're asked to try again, so no enquiry is silently lost.</figcaption>
+  </figure>
+  <table class="experiments">
+    <thead><tr><th>Piece</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td>Booking widget</td><td>The only interactive part of the site. The chosen dates and guest count carry over to the enquiry form through the browser's local storage and the link, so the form arrives prefilled.</td></tr>
+      <tr><td>Worker</td><td>One entry point. Form posts go to the enquiry handler; everything else is served as a static page.</td></tr>
+      <tr><td>Static pages</td><td>Built by Astro, with no JavaScript except the booking widget.</td></tr>
+      <tr><td>/api/enquire</td><td>Validates the form, verifies the spam token, then emails the owner. If email isn't configured, it fails loudly instead of dropping the enquiry.</td></tr>
+      <tr><td>Turnstile</td><td>Blocks spam without making real guests solve a puzzle.</td></tr>
+      <tr><td>Resend</td><td>Sends the enquiry email, with reply-to set to the guest so the owner can just hit reply.</td></tr>
+      <tr><td>Workers Builds</td><td>Runs the Astro build and deploys on every push. No separate CI service.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</article>
+
+<nav class="pager" aria-label="More projects">
+  <a href="/projects/rag-eval-framework"><span>← Previous</span>RAG Evaluation Framework</a>
+  
+</nav>
+
+<footer>
+  <div>
+    <div class="brand-name">Shraddha Yeolekar</div>
+    <div class="tagline">AI agent deployment · Customer experience · Regulated industries</div>
+  </div>
+  <div class="links">
+    <a href="https://ask.shraddhayeolekar.com" target="_blank" rel="noopener">Ask AI</a>
+    <a href="https://github.com/shyeolekar5/ai-experiments" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://www.linkedin.com/in/shraddha-yeolekar/" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+</footer>
+
+</body>
+</html>

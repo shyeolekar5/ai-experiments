@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Projects · Shraddha Yeolekar</title>
+<meta name="description" content="Every project, with the decision that mattered most in each." />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&display=swap" />
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+
+<header class="rule-b">
+  <a class="brand-name" href="/" style="color: var(--color-text);">Shraddha Yeolekar</a>
+  <nav>
+    <a href="/projects/">Projects</a>
+    <a href="/#break-it">Ask AI</a>
+    <a class="optional" href="https://github.com/shyeolekar5/ai-experiments" target="_blank" rel="noopener">GitHub</a>
+    <a class="optional" href="https://www.linkedin.com/in/shraddha-yeolekar/" target="_blank" rel="noopener">LinkedIn</a>
+  </nav>
+</header>
+
+<section class="page-head">
+  <h1>Projects</h1>
+  <p class="section-intro">Every project, with the decision that mattered most. Open one for the full design and diagrams.</p>
+  <div class="filters" role="group" aria-label="Filter by tag">
+    <button type="button" data-filter="" aria-pressed="true">All</button>
+    <button type="button" data-filter="Evaluation" aria-pressed="false">Evaluation</button>
+    <button type="button" data-filter="RAG" aria-pressed="false">RAG</button>
+    <button type="button" data-filter="Guardrails" aria-pressed="false">Guardrails</button>
+    <button type="button" data-filter="Live" aria-pressed="false">Live</button>
+    <button type="button" data-filter="Agentic" aria-pressed="false">Agentic</button>
+    <button type="button" data-filter="Human-in-the-loop" aria-pressed="false">Human-in-the-loop</button>
+    <button type="button" data-filter="Client work" aria-pressed="false">Client work</button>
+  </div>
+</section>
+
+<section style="padding-top: 0;">
+  <ul class="plist">
+    <li data-tags="Evaluation|RAG">
+      <span class="pnum">01</span>
+      <div><h2><a href="/projects/document-pipeline">AI Document Pipeline</a></h2><div class="tags"><span class="tag-chip">Evaluation</span><span class="tag-chip">RAG</span></div></div>
+      <p class="pdecision">Don't ship it yet.</p>
+      <a class="pread" href="/projects/document-pipeline">Read →</a>
+    </li>
+    <li data-tags="Guardrails|Live">
+      <span class="pnum">02</span>
+      <div><h2><a href="/projects/ask-ai">Ask AI</a></h2><div class="tags"><span class="tag-chip">Guardrails</span><span class="tag-chip">Live</span></div></div>
+      <p class="pdecision">Run the cheapest, most predictable guardrail before the model.</p>
+      <a class="pread" href="/projects/ask-ai">Read →</a>
+    </li>
+    <li data-tags="Agentic|Human-in-the-loop">
+      <span class="pnum">03</span>
+      <div><h2><a href="/projects/support-orchestrator">Multi-Agent Support Orchestrator</a></h2><div class="tags"><span class="tag-chip">Agentic</span><span class="tag-chip">Human-in-the-loop</span></div></div>
+      <p class="pdecision">Upset customers and exception requests go to a person, not the bot.</p>
+      <a class="pread" href="/projects/support-orchestrator">Read →</a>
+    </li>
+    <li data-tags="Evaluation|Guardrails">
+      <span class="pnum">04</span>
+      <div><h2><a href="/projects/guardrail-judge-eval">Guardrail &amp; Judge Evaluation</a></h2><div class="tags"><span class="tag-chip">Evaluation</span><span class="tag-chip">Guardrails</span></div></div>
+      <p class="pdecision">Test the cases that break support bots, not just the happy path.</p>
+      <a class="pread" href="/projects/guardrail-judge-eval">Read →</a>
+    </li>
+    <li data-tags="Evaluation|RAG">
+      <span class="pnum">05</span>
+      <div><h2><a href="/projects/rag-eval-framework">RAG Evaluation Framework</a></h2><div class="tags"><span class="tag-chip">Evaluation</span><span class="tag-chip">RAG</span></div></div>
+      <p class="pdecision">Change only the retrieval, and hold everything else fixed.</p>
+      <a class="pread" href="/projects/rag-eval-framework">Read →</a>
+    </li>
+    <li data-tags="Client work">
+      <span class="pnum">06</span>
+      <div><h2><a href="/projects/rental-booking-site">Rental Direct-Booking Site</a></h2><div class="tags"><span class="tag-chip">Client work</span></div></div>
+      <p class="pdecision">Hold back search indexing until the real domain is live.</p>
+      <a class="pread" href="/projects/rental-booking-site">Read →</a>
+    </li>
+  </ul>
+</section>
+
+<section style="padding-top: 0;">
+  <div class="section-head"><h2>Also built</h2></div>
+  <ul class="lab">
+    <li><strong>Voice-to-Trello</strong><span>Speak a task and get a Trello card: transcription, then AI extraction of title, due date, category and priority.</span><a href="https://github.com/shyeolekar5/ai-experiments/tree/main/voice-to-trello-automation" target="_blank" rel="noopener">Code →</a></li>
+    <li><strong>Customer personality analysis</strong><span>A five-person team project on clustering for marketing segmentation. My part was preprocessing, pipeline automation and K-means.</span><a href="https://github.com/shyeolekar5/DeepCollab" target="_blank" rel="noopener">Code →</a></li>
+  </ul>
+</section>
+
+<script>
+  document.querySelectorAll(".filters button").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const tag = btn.dataset.filter;
+      document.querySelectorAll(".filters button").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+      document.querySelectorAll(".plist li").forEach((li) => {
+        li.hidden = tag !== "" && !li.dataset.tags.split("|").includes(tag);
+      });
+    });
+  });
+</script>
+
+<footer>
+  <div>
+    <div class="brand-name">Shraddha Yeolekar</div>
+    <div class="tagline">AI agent deployment · Customer experience · Regulated industries</div>
+  </div>
+  <div class="links">
+    <a href="https://ask.shraddhayeolekar.com" target="_blank" rel="noopener">Ask AI</a>
+    <a href="https://github.com/shyeolekar5/ai-experiments" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://www.linkedin.com/in/shraddha-yeolekar/" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+</footer>
+
+</body>
+</html>

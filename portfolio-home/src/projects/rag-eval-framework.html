@@ -1,0 +1,49 @@
+  <div>
+    <p class="summary">An audit assistant for a dense rules document, built several ways to answer one question: when does retrieval beat handing a long-context model the whole document?</p>
+    <dl>
+      <div><dt>Key decision</dt><dd class="call">Change only the retrieval, and hold everything else fixed.</dd></div>
+      <div><dt>Why</dt><dd>Every version uses the same model and the same auditor prompt, so any difference in the answers comes from what the model was given. Each version also logs its token count, so cost is measured alongside quality.</dd></div>
+      <div><dt>Design detail</dt><dd>A sub-section called "Exceptions" means little on its own. The last version embeds each chunk together with its full heading path, so the search knows which rules an exception belongs to.</dd></div>
+    </dl>
+    <div class="links"><a href="https://github.com/shyeolekar5/ai-experiments/tree/main/ai-evals" target="_blank" rel="noopener">See the code →</a></div>
+  </div>
+  <figure>
+    <div class="diagram-scroll">
+      <svg viewBox="0 0 600 220" role="img" aria-label="Three versions of the same audit assistant. Long context sends the whole rules document with every question. Heading chunks embed each section's content and send the top five. Heading plus path embeds each section with its full heading path and sends the top five. All three use the same model and prompt.">
+        <defs>
+          <marker id="p5a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker>
+        </defs>
+        <g font-size="12" fill="currentColor">
+          <text x="10" y="18" font-size="10" opacity="0.7">VERSION</text>
+          <text x="140" y="18" font-size="10" opacity="0.7">WHAT THE MODEL OR SEARCH SEES</text>
+
+          <text x="10" y="54" font-weight="700">Long context</text>
+          <rect x="140" y="30" width="310" height="40" fill="currentColor" opacity="0.12"/>
+          <rect x="140" y="30" width="310" height="40" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="152" y="54" font-size="11">entire rules.md, with every question</text>
+          <line x1="450" y1="50" x2="498" y2="70" stroke="currentColor" stroke-width="1.5" marker-end="url(#p5a)"/>
+          <text x="456" y="84" font-size="10" opacity="0.8">all tokens</text>
+
+          <text x="10" y="114" font-weight="700">Heading chunks</text>
+          <rect x="140" y="90" width="310" height="40" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="152" y="114" font-size="11">### Exceptions | content…</text>
+          <line x1="450" y1="110" x2="498" y2="110" stroke="currentColor" stroke-width="1.5" marker-end="url(#p5a)"/>
+          <text x="458" y="104" font-size="10" opacity="0.8">top 5</text>
+
+          <text x="10" y="174" font-weight="700">Heading + path</text>
+          <rect x="140" y="150" width="310" height="40" fill="none" stroke="#ec3013" stroke-width="2.5"/>
+          <text x="152" y="174" font-size="11"><tspan fill="#ae1800" font-weight="700">PATH: Rules › Section ›</tspan> Exceptions | …</text>
+          <line x1="450" y1="170" x2="498" y2="150" stroke="currentColor" stroke-width="1.5" marker-end="url(#p5a)"/>
+          <text x="458" y="186" font-size="10" opacity="0.8">top 5</text>
+
+          <rect x="500" y="30" width="90" height="160" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="545" y="100" text-anchor="middle" font-weight="700">same</text>
+          <text x="545" y="116" text-anchor="middle" font-weight="700">model,</text>
+          <text x="545" y="132" text-anchor="middle" font-weight="700">same</text>
+          <text x="545" y="148" text-anchor="middle" font-weight="700">prompt</text>
+          <text x="10" y="212" font-size="11" opacity="0.8">token count logged for every answer</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption>Only the left side changes between versions. The highlighted heading path gives an isolated chunk the context of where it sits in the document.</figcaption>
+  </figure>

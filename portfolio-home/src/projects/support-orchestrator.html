@@ -1,0 +1,47 @@
+  <div>
+    <p class="summary">A support bot where a router agent reads each message and decides whether a knowledge-base agent answers it or a human takes it.</p>
+    <dl>
+      <div><dt>Key decision</dt><dd class="call">Upset customers and exception requests go to a person, not the bot.</dd></div>
+      <div><dt>Why</dt><dd>That's where a fluent wrong answer does the most damage: granting a refund the policy doesn't allow, or arguing with someone who is already angry. The escalation agent doesn't reply to the customer. It writes a two-sentence summary with an urgency label, so the person picking it up starts with context.</dd></div>
+      <div><dt>Gave up</dt><dd>Some tickets the bot might have handled now go to the human team.</dd></div>
+    </dl>
+    <div class="links"><a href="https://github.com/shyeolekar5/ai-experiments/tree/main/ai-orchestration" target="_blank" rel="noopener">See the code →</a></div>
+  </div>
+  <figure>
+    <div class="diagram-scroll">
+      <svg viewBox="0 0 600 240" role="img" aria-label="A router agent classifies each customer message. Policy questions go to vector search and a knowledge-base agent that answers from the retrieved fact. Angry messages or exception requests go to an escalation agent that writes a summary for a human agent.">
+        <defs>
+          <marker id="p3a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker>
+          <marker id="p3r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ec3013"/></marker>
+        </defs>
+        <g font-size="12" fill="currentColor">
+          <rect x="10" y="92" width="96" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="58" y="112" text-anchor="middle">Customer</text><text x="58" y="128" text-anchor="middle">message</text>
+          <line x1="106" y1="115" x2="134" y2="115" stroke="currentColor" stroke-width="1.5" marker-end="url(#p3a)"/>
+          <rect x="136" y="92" width="104" height="46" fill="currentColor" opacity="0.12"/>
+          <rect x="136" y="92" width="104" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="188" y="112" text-anchor="middle" font-weight="700">Router</text><text x="188" y="128" text-anchor="middle" font-size="11">KB or ESCALATE</text>
+
+          <line x1="240" y1="104" x2="298" y2="46" stroke="currentColor" stroke-width="1.5" marker-end="url(#p3a)"/>
+          <text x="300" y="86" font-size="11">policy question</text>
+          <rect x="300" y="20" width="130" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="365" y="40" text-anchor="middle">Vector search</text><text x="365" y="56" text-anchor="middle" font-size="11">best-matching fact</text>
+          <line x1="430" y1="43" x2="454" y2="43" stroke="currentColor" stroke-width="1.5" marker-end="url(#p3a)"/>
+          <rect x="456" y="20" width="134" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="523" y="40" text-anchor="middle">KB agent</text><text x="523" y="56" text-anchor="middle" font-size="11">answers from it</text>
+          <text x="523" y="86" text-anchor="middle" font-size="11">→ reply to customer</text>
+
+          <line x1="240" y1="126" x2="298" y2="184" stroke="#ec3013" stroke-width="2.5" marker-end="url(#p3r)"/>
+          <text x="300" y="154" font-size="11" font-weight="700" fill="#ae1800">angry or exception</text>
+          <rect x="300" y="164" width="130" height="46" fill="none" stroke="#ec3013" stroke-width="2.5"/>
+          <text x="365" y="184" text-anchor="middle" font-weight="700">Escalation agent</text><text x="365" y="200" text-anchor="middle" font-size="11">summary + urgency</text>
+          <line x1="430" y1="187" x2="454" y2="187" stroke="#ec3013" stroke-width="2.5" marker-end="url(#p3r)"/>
+          <rect x="456" y="164" width="134" height="46" fill="none" stroke="#ec3013" stroke-width="2.5"/>
+          <text x="523" y="184" text-anchor="middle" font-weight="700">Human agent</text><text x="523" y="200" text-anchor="middle" font-size="11">picks up ticket</text>
+
+          <text x="10" y="234" font-size="11" opacity="0.8">every model call is traced: latency, tokens in and out</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption>The highlighted path is the decision: the riskiest conversations skip the bot's answer and reach a person with a summary.</figcaption>
+  </figure>

@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ask AI · Shraddha Yeolekar</title>
+<meta name="description" content="Ask AI. Key decision: Run the cheapest, most predictable guardrail before the model." />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&display=swap" />
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+
+<header class="rule-b">
+  <a class="brand-name" href="/" style="color: var(--color-text);">Shraddha Yeolekar</a>
+  <nav>
+    <a href="/projects/">Projects</a>
+    <a href="/#break-it">Ask AI</a>
+    <a class="optional" href="https://github.com/shyeolekar5/ai-experiments" target="_blank" rel="noopener">GitHub</a>
+    <a class="optional" href="https://www.linkedin.com/in/shraddha-yeolekar/" target="_blank" rel="noopener">LinkedIn</a>
+  </nav>
+</header>
+
+<div class="crumb"><a href="/projects/">← All projects</a></div>
+
+<article class="project wide detail">
+  <div>
+    <div class="num">Project 02 · Live public AI</div>
+    <h1>Ask AI</h1>
+    <div class="tags"><span class="tag-chip">Guardrails</span><span class="tag-chip">Live</span></div>
+  </div>
+  <div>
+    <p class="summary">A public chatbot at ask.shraddhayeolekar.com that answers questions about my work using only my resume and GitHub projects, and cites its sources.</p>
+    <dl>
+      <div><dt>Key decision</dt><dd class="call">Run the cheapest, most predictable guardrail before the model.</dd></div>
+      <div><dt>Why</dt><dd>A keyword filter refuses risky questions (salary, comparisons with other people, protected-class topics, jailbreak attempts) without calling Gemini. It runs before the five-a-day rate limit, so a refused question doesn't use up a visitor's quota. After the model, citations that don't match a real source are dropped.</dd></div>
+      <div><dt>Gave up</dt><dd>Some fair questions get refused by a blunt keyword list. For a bot that speaks in my name, I'd rather refuse a fair question than answer a risky one.</dd></div>
+    </dl>
+    <div class="links">
+      <a href="https://github.com/shyeolekar5/ai-experiments/tree/main/ai-search-2" target="_blank" rel="noopener">See the code →</a>
+      <a href="/#break-it">Try to break it ↓</a>
+    </div>
+  </div>
+  <figure>
+    <div class="diagram-scroll">
+      <svg viewBox="0 0 760 230" role="img" aria-label="Ask AI request path: kill switch, spam check, keyword pre-filter, rate limit, Gemini, citation check, answer. Each check before the model can stop the request. The pre-filter refuses risky questions without calling the model or spending quota, and the citation check drops links to unknown sources.">
+        <defs>
+          <marker id="a5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker>
+          <marker id="a5r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ec3013"/></marker>
+        </defs>
+        <g font-size="12" fill="currentColor">
+          <text x="10" y="22" font-size="11" opacity="0.7">before the model · deterministic</text>
+          <text x="540" y="22" font-size="11" opacity="0.7">after the model</text>
+          <rect x="10" y="40" width="88" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="54" y="60" text-anchor="middle">Kill</text><text x="54" y="76" text-anchor="middle">switch</text>
+          <rect x="116" y="40" width="88" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="160" y="60" text-anchor="middle">Spam</text><text x="160" y="76" text-anchor="middle">check</text>
+          <rect x="222" y="40" width="88" height="46" fill="none" stroke="#ec3013" stroke-width="2.5"/>
+          <text x="266" y="60" text-anchor="middle" font-weight="700">Keyword</text><text x="266" y="76" text-anchor="middle" font-weight="700">pre-filter</text>
+          <rect x="328" y="40" width="88" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="372" y="60" text-anchor="middle">Rate limit</text><text x="372" y="76" text-anchor="middle">5 / day</text>
+          <rect x="434" y="40" width="88" height="46" fill="currentColor" opacity="0.12"/>
+          <rect x="434" y="40" width="88" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="478" y="60" text-anchor="middle" font-weight="700">Gemini</text><text x="478" y="76" text-anchor="middle" font-size="11">JSON + cites</text>
+          <rect x="540" y="40" width="88" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="584" y="60" text-anchor="middle">Citation</text><text x="584" y="76" text-anchor="middle">check</text>
+          <rect x="646" y="40" width="88" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="690" y="68" text-anchor="middle">Answer</text>
+          <g stroke="currentColor" stroke-width="1.5">
+            <line x1="98" y1="63" x2="114" y2="63" marker-end="url(#a5)"/>
+            <line x1="204" y1="63" x2="220" y2="63" marker-end="url(#a5)"/>
+            <line x1="310" y1="63" x2="326" y2="63" marker-end="url(#a5)"/>
+            <line x1="416" y1="63" x2="432" y2="63" marker-end="url(#a5)"/>
+            <line x1="522" y1="63" x2="538" y2="63" marker-end="url(#a5)"/>
+            <line x1="628" y1="63" x2="644" y2="63" marker-end="url(#a5)"/>
+          </g>
+          <g stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 3">
+            <line x1="54" y1="86" x2="54" y2="134" marker-end="url(#a5)"/>
+            <line x1="160" y1="86" x2="160" y2="134" marker-end="url(#a5)"/>
+            <line x1="372" y1="86" x2="372" y2="134" marker-end="url(#a5)"/>
+            <line x1="584" y1="86" x2="584" y2="134" marker-end="url(#a5)"/>
+          </g>
+          <line x1="266" y1="86" x2="266" y2="134" stroke="#ec3013" stroke-width="2.5" marker-end="url(#a5r)"/>
+          <text x="54" y="154" text-anchor="middle" font-size="11">off →</text>
+          <text x="54" y="170" text-anchor="middle" font-size="11">paused</text>
+          <text x="160" y="154" text-anchor="middle" font-size="11">bot →</text>
+          <text x="160" y="170" text-anchor="middle" font-size="11">rejected</text>
+          <text x="266" y="154" text-anchor="middle" font-size="11" font-weight="700" fill="#ae1800">risky → refusal</text>
+          <text x="266" y="170" text-anchor="middle" font-size="11" fill="#ae1800">no model call,</text>
+          <text x="266" y="186" text-anchor="middle" font-size="11" fill="#ae1800">no quota spent</text>
+          <text x="372" y="154" text-anchor="middle" font-size="11">6th ask →</text>
+          <text x="372" y="170" text-anchor="middle" font-size="11">tomorrow</text>
+          <text x="584" y="154" text-anchor="middle" font-size="11">unknown link →</text>
+          <text x="584" y="170" text-anchor="middle" font-size="11">dropped</text>
+          <line x1="10" y1="206" x2="734" y2="206" stroke="currentColor" stroke-width="1" opacity="0.25"/>
+          <text x="10" y="224" font-size="11" opacity="0.8">refusals and answers are logged to a database for review</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption>Every check before the model can stop a request. The highlighted pre-filter is the key decision: it costs nothing, behaves the same way every time, and runs before the rate limit.</figcaption>
+  </figure>
+<div class="arch">
+  <h2>How it's built</h2>
+  <p class="section-intro">Everything except the model and the GitHub content runs on Cloudflare: one Worker, with storage, spam protection and deployment from the same platform.</p>
+  <figure>
+    <div class="diagram-scroll">
+      <svg viewBox="0 0 900 400" role="img" aria-label="Ask AI architecture. The visitor's browser loads the page from Cloudflare static assets and posts each question with a Turnstile token to a Cloudflare Worker. The Worker verifies the token with Turnstile, reads and writes KV for the kill switch, rate limits and README cache, logs to D1, uses the resume file bundled at deploy, and sends sources and question to Gemini 2.5 Flash. GitHub READMEs are cached in KV and refreshed after 24 hours. Pushing to main triggers Workers Builds, which deploys the Worker; secrets are attached at runtime.">
+        <defs>
+          <marker id="aa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker>
+        </defs>
+        <g font-size="12" fill="currentColor">
+          <!-- Cloudflare boundary -->
+          <rect x="160" y="14" width="530" height="290" fill="none" stroke="#ec3013" stroke-width="1.5" stroke-dasharray="6 4"/>
+          <text x="172" y="34" font-weight="700" fill="#ae1800">Cloudflare</text>
+          <text x="720" y="34" font-size="11" opacity="0.7">outside Cloudflare</text>
+
+          <!-- browser -->
+          <rect x="10" y="140" width="120" height="60" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="70" y="162" text-anchor="middle" font-weight="700">Visitor</text>
+          <text x="70" y="178" text-anchor="middle" font-size="11">page +</text>
+          <text x="70" y="192" text-anchor="middle" font-size="11">Turnstile widget</text>
+
+          <!-- column B -->
+          <rect x="180" y="50" width="130" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="245" y="70" text-anchor="middle">Static assets</text><text x="245" y="86" text-anchor="middle" font-size="11">the page</text>
+          <rect x="180" y="240" width="130" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="245" y="260" text-anchor="middle">Turnstile</text><text x="245" y="276" text-anchor="middle" font-size="11">spam check</text>
+
+          <!-- column C -->
+          <rect x="370" y="140" width="150" height="60" fill="currentColor" opacity="0.12"/>
+          <rect x="370" y="140" width="150" height="60" fill="none" stroke="currentColor" stroke-width="2"/>
+          <text x="445" y="162" text-anchor="middle" font-weight="700">Worker</text>
+          <text x="445" y="178" text-anchor="middle" font-size="11">/api/search</text>
+          <text x="445" y="192" text-anchor="middle" font-size="11">guardrails in order</text>
+          <rect x="370" y="240" width="150" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="445" y="260" text-anchor="middle">context.md</text><text x="445" y="276" text-anchor="middle" font-size="11">resume, bundled in</text>
+
+          <!-- column D -->
+          <rect x="560" y="50" width="120" height="76" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="620" y="68" text-anchor="middle" font-weight="700">KV</text>
+          <text x="620" y="84" text-anchor="middle" font-size="11">kill switch</text>
+          <text x="620" y="100" text-anchor="middle" font-size="11">daily limits</text>
+          <text x="620" y="116" text-anchor="middle" font-size="11">README cache</text>
+          <rect x="560" y="240" width="120" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="620" y="260" text-anchor="middle" font-weight="700">D1</text><text x="620" y="276" text-anchor="middle" font-size="11">query log</text>
+
+          <!-- column E: external -->
+          <rect x="720" y="50" width="170" height="56" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="805" y="72" text-anchor="middle">GitHub READMEs</text><text x="805" y="90" text-anchor="middle" font-size="11">re-fetched after 24h</text>
+          <rect x="720" y="142" width="170" height="56" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="805" y="164" text-anchor="middle" font-weight="700">Gemini 2.5 Flash</text><text x="805" y="182" text-anchor="middle" font-size="11">JSON: answer + citations</text>
+
+          <!-- request arrows -->
+          <g stroke="currentColor" stroke-width="1.5" fill="none">
+            <line x1="130" y1="150" x2="178" y2="92" marker-end="url(#aa)"/>
+            <line x1="130" y1="172" x2="368" y2="172" marker-end="url(#aa)"/>
+            <line x1="370" y1="195" x2="312" y2="246" marker-end="url(#aa)"/>
+            <line x1="445" y1="240" x2="445" y2="203" marker-end="url(#aa)"/>
+            <line x1="520" y1="150" x2="558" y2="120" marker-start="url(#aa)" marker-end="url(#aa)"/>
+            <line x1="520" y1="192" x2="575" y2="238" marker-end="url(#aa)"/>
+            <line x1="520" y1="170" x2="718" y2="170" marker-start="url(#aa)" marker-end="url(#aa)"/>
+            <line x1="720" y1="78" x2="682" y2="78" marker-end="url(#aa)"/>
+          </g>
+          <text x="250" y="164" text-anchor="middle" font-size="11">question + token</text>
+          <text x="300" y="226" text-anchor="end" font-size="11">verify token</text>
+          <text x="453" y="226" font-size="11">bundled</text>
+          <text x="619" y="162" text-anchor="middle" font-size="11">sources + question</text>
+          <text x="556" y="206" font-size="11">log</text>
+
+          <!-- deploy lane -->
+          <text x="10" y="367" font-size="11" opacity="0.7">on push to main</text>
+          <rect x="180" y="340" width="130" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="245" y="360" text-anchor="middle">GitHub repo</text><text x="245" y="376" text-anchor="middle" font-size="11">main branch</text>
+          <rect x="370" y="340" width="150" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="445" y="360" text-anchor="middle">Workers Builds</text><text x="445" y="376" text-anchor="middle" font-size="11">build + deploy</text>
+          <rect x="560" y="340" width="120" height="46" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <text x="620" y="360" text-anchor="middle">Secrets</text><text x="620" y="376" text-anchor="middle" font-size="11">API keys</text>
+          <g stroke="currentColor" stroke-width="1.5" fill="none">
+            <line x1="310" y1="363" x2="368" y2="363" marker-end="url(#aa)"/>
+            <line x1="445" y1="340" x2="445" y2="306" marker-end="url(#aa)"/>
+            <line x1="620" y1="340" x2="620" y2="306" stroke-dasharray="4 3" marker-end="url(#aa)"/>
+          </g>
+          <text x="453" y="326" font-size="11">deploys</text>
+          <text x="628" y="326" font-size="11">attached at runtime</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption>The request path runs across the top: the visitor sends a question to one Worker, which talks to every other piece. The deploy path is along the bottom. Only Gemini and GitHub sit outside Cloudflare.</figcaption>
+  </figure>
+  <table class="experiments">
+    <thead><tr><th>Piece</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td>Worker</td><td>Receives each question, runs the guardrails in order, calls Gemini and checks the citations. Everything else falls through to the static page.</td></tr>
+      <tr><td>KV</td><td>Three jobs: the kill-switch flag, a per-visitor daily counter that expires after about a day, and the cached GitHub READMEs.</td></tr>
+      <tr><td>D1</td><td>Logs every question and answer, and whether the pre-filter blocked it, so real traffic can be reviewed.</td></tr>
+      <tr><td>Turnstile</td><td>Spam check. The Worker verifies the token server-side before the question goes any further.</td></tr>
+      <tr><td>context.md</td><td>The resume and project notes, bundled into the Worker at deploy time.</td></tr>
+      <tr><td>GitHub READMEs</td><td>Four project write-ups fetched live and cached for 24 hours, so they stay current without a redeploy.</td></tr>
+      <tr><td>Gemini 2.5 Flash</td><td>Answers from the provided sources only, returning structured JSON: the answer, its citations and a "grounded" flag.</td></tr>
+      <tr><td>Workers Builds</td><td>Builds and deploys automatically on every push to main. API keys live in Cloudflare's secrets, not in the code.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</article>
+
+<nav class="pager" aria-label="More projects">
+  <a href="/projects/document-pipeline"><span>← Previous</span>AI Document Pipeline</a>
+  <a class="next" href="/projects/support-orchestrator"><span>Next →</span>Multi-Agent Support Orchestrator</a>
+</nav>
+
+<footer>
+  <div>
+    <div class="brand-name">Shraddha Yeolekar</div>
+    <div class="tagline">AI agent deployment · Customer experience · Regulated industries</div>
+  </div>
+  <div class="links">
+    <a href="https://ask.shraddhayeolekar.com" target="_blank" rel="noopener">Ask AI</a>
+    <a href="https://github.com/shyeolekar5/ai-experiments" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://www.linkedin.com/in/shraddha-yeolekar/" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+</footer>
+
+</body>
+</html>
