@@ -6,7 +6,9 @@ import { LINKEDIN_URL } from "./constants";
 
 const BLOCKED_PATTERNS: RegExp[] = [
   // Jailbreak / instruction-override attempts
-  /ignore (all|previous|prior|the above)?\s*instructions?/i,
+  // "ignore/disregard/forget/override ... instructions/rules/prompt", with up to
+  // a few words in between ("ignore all previous instructions", "disregard your rules")
+  /\b(ignore|disregard|forget|override|bypass)\b(\s+\S+){0,4}?\s+(instructions?|rules|prompts?|guidelines|guardrails)\b/i,
   /pretend (you're|you are|to be)/i,
   /act as (if|a|an)/i,
   /you are now/i,
