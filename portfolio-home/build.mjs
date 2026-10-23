@@ -106,7 +106,7 @@ const home = page({
       <div class="fact"><div class="value">+25%</div><div class="label">Monthly case deflection from the first client-facing AI chatbot</div></div>
       <div class="fact"><div class="value">&lt;1%</div><div class="label">Hallucination rate held since that launch</div></div>
       <div class="fact"><div class="value">0</div><div class="label">PII or unauthorized-advice incidents to date</div></div>
-      <div class="fact"><div class="value">20 FTE</div><div class="label">Saved per month by a human-in-the-loop quality program</div></div>
+      <div class="fact"><div class="value">30+</div><div class="label">Conversation flows designed, including the hand-off to human agents</div></div>
     </div>
   </div>
 </section>
