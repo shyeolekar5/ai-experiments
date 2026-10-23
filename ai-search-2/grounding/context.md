@@ -7,41 +7,56 @@ URL: https://github.com/shyeolekar5/ai-experiments
 
 SHRADDHA YEOLEKAR
 AI agent deployment · Customer experience · Regulated industries
-linkedin.com/in/shraddha-yeolekar • github.com/shyeolekar5
+shraddhayeolekar.com • linkedin.com/in/shraddha-yeolekar • github.com/shyeolekar5
 
 SUMMARY
-Takes AI from vendor evaluation to production in customer experience, in a regulated industry where a wrong answer has consequences. At OANDA, owns the AI and automation portfolio for client experience: build-vs-buy decisions, launch and rollback criteria, regulatory sign-off, and the KPIs behind every launch, with zero PII or unauthorized-advice incidents to date. Not an engineer, but technical enough to read the logs, design the evaluation, and build a working system when no vendor fits. Certificate in Deploying AI from the University of Toronto and a Master's in Management.
+Has spent five years taking AI agents and automation from discovery to production at OANDA, a regulated online trading company. Evaluates vendors, defines success criteria, designs the evaluations and guardrails, gets compliance sign-off, and works with support teams until the AI is adopted and measurably better. Also builds and deploys AI tools herself in Python and TypeScript by directing AI coding tools such as Claude Code, then reviewing and testing what they produce. Before OANDA, co-founded and ran a content agency for seven years, pitching, scoping and delivering work for clients in four countries. Her strength is deciding when an AI agent is ready to launch and backing that decision with evidence.
+
+KEY RESULTS
+- +25% monthly case deflection from an AI chatbot
+- Hallucination rate under 1% since launch
+- Zero PII or unauthorized-advice incidents to date
 
 CORE SKILLS
-AI Deployment & Evaluation: RAG/LLM Architecture, Evaluation Design (golden datasets, LLM-as-a-judge), Guardrails, Release Readiness & Rollback Criteria, Production Monitoring
-Regulated Launches: Compliance Sign-off, Human-in-the-Loop Review, PII Controls, Change Management
-Build-vs-Buy & ROI: Vendor Evaluation & Selection, ROI Modeling, Backlog Prioritization, Agile/Scrum
-Stakeholder Leadership: Cross-Functional Steering Committees, Senior Leadership Communication, Customer/Stakeholder Workshops
-GenAI & Data: LLMs (GPT-4, Gemini), Semantic Search, Vector Embeddings, Prompt Engineering, Sentiment Analysis, Python (Pandas, NumPy), SQL, Looker Studio
-Delivery Tools: CI/CD (CircleCI), Kubernetes, ArgoCD, REST API Integration, Git, Jira, Confluence
+AI agent deployment, conversational AI, conversation design, human hand-off, transcript review, customer support automation, vendor evaluation, success criteria and KPIs, evaluation frameworks, guardrails, human-in-the-loop review, compliance and risk, stakeholder management, client management, training and enablement, change management
 
 EXPERIENCE
 OANDA, Toronto, Canada — 2021 to Present
+
 Global Manager, Digital Client Experience
-Owns OANDA's AI and automation portfolio for client experience: build-vs-buy decisions, launch criteria, regulatory sign-off, and the KPIs behind every launch.
-- Owns end-to-end regulatory approval for every AI launch (human-in-the-loop review, PII controls, jurisdiction-by-jurisdiction sign-off), with zero PII or unauthorized-advice incidents to date.
-- Weighed architecture and ROI trade-offs to select two vendor AI systems and take them to production: an AI chatbot (+25% monthly deflection, ~4 FTE/year) and a human-in-the-loop quality review program (10,000+ cases/month, ~20 FTE/month saved). Built a third system herself where no vendor fit.
-- Built and launched OANDA's first AI-powered roleplay trainer for skill practice after vendor evaluation showed no fit; early pilot data points to roughly 30% faster new-hire ramp time.
-- Defines and tracks the KPIs behind every AI launch (deflection rate, CSAT, resolution time), reading dashboards directly to steer priorities.
-- Turns live production issues, such as false escalations and hallucination edge cases, into roadmap decisions, working directly with Compliance, Engineering, and regional Support.
-- Leads steering committees across Product, Engineering, and Compliance, holding the line on scope and keeping AI initiatives aligned to regional ROI targets.
-- Reports to senior leadership on the health and direction of the AI and automation portfolio, translating technical trade-offs into investment and prioritization decisions.
+Owns OANDA's AI and automation portfolio for client experience, from discovery and vendor selection through launch, compliance approval and ongoing improvement.
+- AI agent deployment: Led the move from OANDA's earlier predictive chatbot to a generative AI and RAG chatbot, after hands-on evaluations of several vendors. It raised monthly case deflection by 25% and has kept hallucination under 1% since launch. It serves clients in several markets, in English and French.
+- Vendor evaluation and build-vs-buy: Compares vendor AI systems on architecture, cost and ROI before committing. Where no vendor fit, as with the roleplay trainer, she built the solution herself.
+- AI for agent training: Built OANDA's first AI roleplay trainer with AI coding tools and deployed it to production, so new support hires can practise their skills.
+- Training and enablement: Trains support teams on each new AI tool and writes the guides they use to work with it.
+- Quality assurance: Scaled a human-in-the-loop quality review program that uses AI to reduce manual review work.
+- Compliance and risk: Owns regulatory approval for every AI launch, including human review, PII controls and sign-off in each jurisdiction. There have been no PII or unauthorized-advice incidents to date.
+- Success criteria and KPIs: Defines the metrics for every AI launch (deflection rate, CSAT and resolution time) and tracks them in live dashboards to decide what to improve next.
+- Release readiness: Sets the release and rollback criteria for LLM services and works with Engineering on the release pipeline, reading logs and monitoring dashboards directly after each launch.
+- Production issues and product feedback: Works inside Compliance, Engineering and regional Support teams to turn live problems, such as false escalations and hallucination edge cases, into roadmap decisions.
+- Stakeholder management: Leads steering committees with Product, Engineering and Compliance, holds the line on scope, and keeps each AI initiative tied to ROI targets.
+- Executive communication: Briefs senior leadership on the health of the AI portfolio, explaining technical trade-offs in plain terms so they can make investment and priority decisions.
 
 Content Lead (OANDA, earlier role)
-Owned AI strategy and automation delivery for the client-experience org, from identifying use cases through platform migration and daily operational tooling.
-- Led OANDA's migration from predictive AI (Salesforce Einstein) to a Generative AI/RAG architecture, lifting global deflection 15% while holding hallucination rates under 1% since launch, after hands-on evaluations of Agentforce and third-party vendors.
-- Owned release readiness and rollback criteria for RAG-based LLM services, working with Engineering on release pipelines (CircleCI, Kubernetes, ArgoCD) and reading logs and monitoring dashboards directly.
-- Led cross-functional pilots for agent-facing AI (automated summarization, sentiment analysis, and recommended responses), iterating directly with front-line teams.
-- Automated manual reporting into live dashboards, replacing periodic updates with daily visibility and saving an estimated 30 hours/month of manual work.
+Owned AI strategy and automation delivery for the client experience team, from finding use cases to running them day to day.
+- Conversation design: Designed more than 30 conversation flows for a predictive chatbot, including the hand-off from the bot to human agents.
+- CRM integration: Led the chatbot's integration with the support team's CRM, with live routing to available agents and automatic case creation when no agent was available.
+- Transcript review and knowledge base gaps: Used AI to review chatbot transcripts and turn them into clear action items. For example, recurring customer questions led to many new troubleshooting guides being added to the knowledge base.
+- Agent-assist pilots: Ran pilots of AI tools for support agents, including automatic summaries, sentiment analysis and suggested responses, and refined them with feedback from front-line teams.
+- Automation discovery: Identified automation opportunities across client experience and replaced manual reporting with live dashboards.
 
-EARLY CAREER
-Co-founder, Brand Communication & Strategy — Spider Content Inc., Canada & Asia, 2014-2021. Built and led a team of 7+ across strategy, content, and delivery for clients across Canada and Asia.
-Category Manager, Hair Care — Raymond Limited, Mumbai, India, 2012-2014. Owned P&L, product portfolio, and market/distribution strategy for the category at national retail scale.
+SKILLS
+AI and LLMs: AI agents, conversational AI, large language models (GPT-4, Gemini), retrieval-augmented generation (RAG), prompt engineering, semantic search, vector embeddings, sentiment analysis, conversation design, knowledge base management
+Evaluation and quality: evaluation frameworks, golden datasets, LLM-as-a-judge, DeepEval, guardrails, transcript review, human-in-the-loop review, release and rollback criteria, production monitoring
+Technical: AI-assisted development (Claude Code), Python (Pandas, NumPy), TypeScript, SQL, Google Cloud (GCP), Cloudflare Workers, Salesforce Service Cloud (Omni-Channel routing), REST API integrations, CI/CD (CircleCI, Kubernetes, ArgoCD), Git, Looker Studio
+Customer and business: client pitches and proposals, project scoping, discovery and requirements, stakeholder workshops, vendor evaluation, ROI modeling, KPI design, change management, executive communication, Agile/Scrum, Jira, Confluence
+
+EARLIER CAREER
+Co-founder, Brand Communication & Strategy — Spider Content Inc., Canada, India & Malaysia, 2014-2021.
+- Client acquisition: Pitched new clients and built referral partnerships, winning work from clients in India, Malaysia, Canada and the US.
+- Scoping and delivery: Wrote proposals, scoped each project and led delivery through to completion.
+- Team leadership: Built and led a team of 7+ across strategy, content and delivery, and managed the agency's resourcing across projects.
+Category Manager, Hair Care — Raymond Limited, Mumbai, India, 2012-2014. Owned the P&L, product portfolio, and market and distribution strategy for the category at national retail scale.
 
 EDUCATION & CERTIFICATIONS
 Certificate in Deploying AI (2026) — University of Toronto, Canada
