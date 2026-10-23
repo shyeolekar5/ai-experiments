@@ -82,12 +82,12 @@ const cards = featured
 
 const home = page({
   title: "Shraddha Yeolekar",
-  description: "I decide when an AI product is ready to launch, and I show the evidence: projects, the key decision in each, and the design behind it.",
+  description: "I launch AI that customers can trust. My projects, the key decision in each, and how each system works.",
   main: `<div class="hero">
   <div>
     <div class="kicker">${esc(ROLE)}</div>
-    <h1>I decide when an AI product is ready to launch, and I show the evidence.</h1>
-    <p>Before anything goes live, I test the options against each other, measure what each one gets right and wrong, and set a bar it has to clear. Sometimes the answer is "not yet." Below are three of my projects, with the decision that mattered most in each and the design behind it.</p>
+    <h1>I launch AI that customers can trust.</h1>
+    <p>For five years, I have put AI chatbots in front of real customers at a regulated trading company. I test the AI before launch, set a bar it must clear, and say "not yet" when it is not ready. Below are three of my projects, with the key decision in each and how it works.</p>
     <div class="actions">
       <a href="#featured" class="btn btn-primary">See the projects ↓</a>
       <a href="#break-it" class="btn btn-secondary">Try to break my AI →</a>
